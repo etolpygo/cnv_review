@@ -5,6 +5,8 @@ class Case(models.Model):
     PatientID = models.CharField(max_length=20, blank=False)
     created = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return self.TestOrderID
 
     class Meta:
         ordering = ('created',)
