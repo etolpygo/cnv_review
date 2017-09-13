@@ -1,0 +1,16 @@
+probe name	report_format	variant	transcript	classification	reads	maf	is_somatic	gene	suppress_result	msi_sites_called	msi_sites_tested
+CNV 1		KCND3 amplification	All	VUS	~2.5x			KCND3	true		
+CNV 2		NOTCH2 amplification	All	VUS	~2.5x			NOTCH2	true		
+CNV 3		TADA1 deep deletion	All	VUS				TADA1	true		
+CNV 4		ARHGAP25 amplification	All	VUS	~2.5x			ARHGAP25	true		
+CNV 5		PDZRN3,ROBO1,LOC728290 deep deletion	All	VUS				PDZRN3,ROBO1,LOC728290	true		
+CNV 6		TERT amplification	All	VUS	~2.5x			TERT	true		
+CNV 7		CHD1,LINC00491 amplification	All	VUS	~2.5x			CHD1,LINC00491	true		
+CNV 8		SLC12A2 amplification	All	VUS	~3.0x			SLC12A2	true		
+CNV 9		SPOCK1,EGR1 amplification	All	VUS	~2.5x			SPOCK1,EGR1	true		
+CNV 10		CTNNA1 amplification	All	VUS	~3.0x			CTNNA1	true		
+CNV 11		RELL2,SPRY4,LOC101926941,ARHGAP26 amplification	All	VUS	~2.5x			RELL2,SPRY4,LOC101926941,ARHGAP26	true		
+CNV 12		MYB amplification	All	VUS	~3.0x			MYB	true		
+CNV 13		JAZF1 amplification	All	VUS	~2.5x			JAZF1	true		
+CNV 14		BRAF deep deletion	All	VUS				BRAF	true		
+CNV 15		** Found >15 CNVs! Review in Nexus		VUS					true		

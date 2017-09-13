@@ -1,0 +1,5 @@
+probe name	report_format	variant	transcript	classification	reads	maf	is_somatic	gene	suppress_result	msi_sites_called	msi_sites_tested
+CNV 1		ZNF703,ADGRA2,ASH2L amplification	All	VUS	~2.5x		true	ZNF703,ADGRA2,ASH2L	true		
+CNV 2		CCND1,FGF19,FGF4 amplification	All	VUS	~3.0x		true	CCND1,FGF19,FGF4	true		
+CNV 3		FGF4,FGF3 amplification	All	VUS	~4.0x		true	FGF4,FGF3	true		
+CNV 4		LOC101927770,ZNF217 amplification	All	VUS	~2.5x		true	LOC101927770,ZNF217	true		

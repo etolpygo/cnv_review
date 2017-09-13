@@ -1,0 +1,13 @@
+probe name	report_format	variant	transcript	classification	reads	maf	is_somatic	gene	suppress_result	msi_sites_called	msi_sites_tested
+CNV 1		LOC100131635 deep deletion	All	VUS			true	LOC100131635	true		
+CNV 2		TERT amplification	All	VUS	~2.5x		true	TERT	true		
+CNV 3		HIST1H3B deep deletion	All	VUS			true	HIST1H3B	true		
+CNV 4		ROS1 amplification	All	VUS	~2.5x		true	ROS1	true		
+CNV 5		TNFAIP3 deep deletion	All	VUS			true	TNFAIP3	true		
+CNV 6		PIK3CG deep deletion	All	VUS			true	PIK3CG	true		
+CNV 7		ETV6 amplification	All	VUS	~2.5x		true	ETV6	true		
+CNV 8		CDKN1B deep deletion	All	VUS			true	CDKN1B	true		
+CNV 9		FUS deep deletion	All	VUS			true	FUS	true		
+CNV 10		MIR512-2,MIR515-1,MIR519C,MIR523 amplification	All	VUS	~2.5x		true	MIR512-2,MIR515-1,MIR519C,MIR523	true		
+CNV 11		ZNF217 deep deletion	All	VUS			true	ZNF217	true		
+MSI									true	1.0	1281.0
