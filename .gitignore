@@ -1,5 +1,5 @@
 // ignore bundled assets
-assets/bundles/*
+review/assets/bundles/*
 
 
 // ignore node_modules

@@ -12,14 +12,14 @@ module.exports = {
     
     output: {
         // where you want the compiled bundle to be stored
-        path: path.resolve('./assets/bundles/'),
+        path: path.resolve('./review/assets/bundles/'),
         // naming convention webpack should use for your files
         filename: '[name]-[hash].js',
     },
 
     plugins: [
         // tells webpack where to store data about your bundles
-        new BundleTracker({filename: './webpack-stats.json'}),
+        new BundleTracker({filename: './review/webpack-stats.json'}),
         new webpack.ProvidePlugin({ 
             $: 'jquery',
             jQuery: 'jquery',
