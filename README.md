@@ -3,8 +3,8 @@
 ## To setup locally:
 
 ### clone the repo
-git clone git@bitbucket.org:ccgl/cnv_review.git
-cd cnv_review
+* git clone git@bitbucket.org:ccgl/cnv_review.git
+* cd cnv_review
 
 ### install and compile resources
 * npm install --save-dev
