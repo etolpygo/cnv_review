@@ -7,8 +7,8 @@ git clone git@bitbucket.org:ccgl/cnv_review.git
 cd cnv_review
 
 ### install and compile resources
-npm install --save-dev
-./node_modules/.bin/webpack --config webpack.config.js
+* npm install --save-dev
+* ./node_modules/.bin/webpack --config review/webpack.config.js
 
 ### apply initial migrations
 python manage.py migrate
