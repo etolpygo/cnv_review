@@ -1,25 +1,23 @@
 // ignore bundled assets
 review/assets/bundles/*
 
-
 // ignore node_modules
 node_modules/*
-
 
 // ignore package-lock.json
 package-lock.json
 
-
 // ignore webpack-stats.json wherever it may be found
 webpack-stats.json
-
 
 // ignore all pycache
 __pycache__
 
-
 // ignore db.sqlite3
 db.sqlite3
+
+// ignore geckodriver.log (used for selenium FF testing)
+geckodriver.log
 
 *.pyc
 *.swp
