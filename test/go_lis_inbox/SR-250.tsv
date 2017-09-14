@@ -1,0 +1,6 @@
+runs
+run_id	platform	run_type	run_data_location
+SR-250_2017-09-13_16:59:41	HiSeq	Default	/SR-250/
+samples
+run_id	ccgl_no	sample_category	stabilization	disease_name	pathologic_diagnosis	sample_type_tumor	sample_type_normal	anatomic_site_tumor	anatomic_site_normal	specimen_collection_date_tumor	specimen_collection_date_normal	specimen_received_tumor	specimen_received_normal	path_id_tumor	path_id_normal	fixation_tumor	fixation_normal	sequencing_run_id_tumor	sequencing_run_id_normal	dnanexus_job_id_tumor	dnanexus_job_id_normal	patient_zip	has_germline_consent	is_test_order	sample_id	order_id	order_date	test	mrn	first_name	last_name	middle_initial	gender	dob	ordering_physician	ordering_physician_first	ordering_physician_suffix	ordering_physician_institute	ordering_pathologist_first	ordering_pathologist_last	ordering_pathologist_suffix	diagnosis	pathologist_estimated_tumor_fraction	patient_id	sequencing_run_id	ucsf_pipeline
+SR-250_2017-09-13_16:59:41	CCGL-773	Patient Sample	default	Unknown	Unknown	Solid Tissue				01/10/2017		01/18/2017		PR-005 A-B		FFPE		SR-250					false		CGP-3828	CCGL-773	01/18/2017	CCGL500TO_V2	820	T	M		M	01/01/1948	AGGARWAL	RAHUL	MD		JIAOTI	HUANG	MD	PROSTATE CANCER		PA-820	SR-250	NIM V4
