@@ -16,10 +16,15 @@ __pycache__
 // ignore db.sqlite3
 db.sqlite3
 
-// ignore geckodriver.log (used for selenium FF testing)
+// geckodriver.log is used for selenium FF testing
 geckodriver.log
 
+// compiled and swap files
 *.pyc
 *.swp
 *.swo
-test/*.vcf
+
+// any patient files
+**.vcf
+**.cns
+**.cnr
