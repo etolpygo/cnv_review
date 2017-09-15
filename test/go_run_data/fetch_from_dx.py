@@ -8,11 +8,14 @@ import os
 
 GO_SCRIPT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
-for directory in [  "/SR-238/Data/Intensities/BaseCalls/Alignment/", 
-                    "/SR-250/Data/Intensities/BaseCalls/Alignment/",
-                    "/SR-257/Data/Intensities/BaseCalls/Alignment/",
-                    "/SR-260/Data/Intensities/BaseCalls/Alignment/"]:
-    os.system("mkdir -p " + GO_SCRIPT_ROOT + directory)       
+for directory in [  "SR-238/Data/Intensities/BaseCalls/Alignment/", 
+                    "SR-250/Data/Intensities/BaseCalls/Alignment/",
+                    "SR-257/Data/Intensities/BaseCalls/Alignment/",
+                    "SR-260/Data/Intensities/BaseCalls/Alignment/"]:
+    outdir = os.path.join(GO_SCRIPT_ROOT, directory)
+    if not os.path.isdir(outdir):
+        print("Creating", outdir, file=sys.stderr)
+        os.makedirs(outdir)
 
 for file_id, out_path in [
     ("file-F1vB6fj05Z5zXp139VyGBJPp", GO_SCRIPT_ROOT + "/SR-238/Data/Intensities/BaseCalls/Alignment/CCGL-716.vcf"), # /010617-CL-221/out/vcfs_for_go/PA-760_CGP-3615_CGP-3614_NT.SR-238.final_snv_go.vcf
