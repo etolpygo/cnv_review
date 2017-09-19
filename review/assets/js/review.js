@@ -1,5 +1,6 @@
 var React = require('react')
 var ReactDOM = require('react-dom')
+import Chart    from './components/Chart';
 
-
-alert('review');
+ReactDOM.render(<Chart />, 
+    document.getElementById('review_container'))
