@@ -1,11 +1,7 @@
+{% extends '../base.html' %}
 {% load render_bundle from webpack_loader %}
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Cases</title>
-    </head>
-    <body>
-        <div id="cases_container"></div>
-        {% render_bundle 'index' %}
-    </body>
-</html>
+
+{% block content %}
+    <div id="cases_container"></div>
+    {% render_bundle 'index' %}
+{% endblock %}
