@@ -12,9 +12,15 @@ export default (props) => {
     scale: props.yScale,
     orient: 'Left'
   };
+  const xTopSettings = {
+    translate: `translate(0, ${props.padding})`,
+    scale: props.xScale,
+    orient: 'Top'
+  };
 
   return <g className="xy-axis">
     <Axis {...xSettings}/>
+    <Axis {...xTopSettings}/>
     <Axis {...ySettings}/>
   </g>
 }
