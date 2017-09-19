@@ -19,6 +19,9 @@ db.sqlite3
 // geckodriver.log is used for selenium FF testing
 geckodriver.log
 
+// filesystem files
+*.DS_Store
+
 // compiled and swap files
 *.pyc
 *.swp
