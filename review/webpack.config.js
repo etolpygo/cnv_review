@@ -9,7 +9,7 @@ module.exports = {
     // the entry point we created earlier
     // ./ means your current directory
     entry: {
-        main: './assets/js/index.js',
+        index: './assets/js/index.js',
         review: './assets/js/review.js',
     },
     
