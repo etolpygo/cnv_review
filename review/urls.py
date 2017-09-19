@@ -4,4 +4,5 @@ from review import views
 app_name = 'review'
 urlpatterns = [
     url(r'^$', views.index, name='index'),
+    url(r'^review$', views.review, name='review'),
 ]

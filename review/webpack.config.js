@@ -8,7 +8,10 @@ module.exports = {
     context: __dirname,
     // the entry point we created earlier
     // ./ means your current directory
-    entry: './assets/js/index.js',
+    entry: {
+        main: './assets/js/index.js',
+        review: './assets/js/review.js',
+    },
     
     output: {
         // where you want the compiled bundle to be stored
