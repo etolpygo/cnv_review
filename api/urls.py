@@ -7,4 +7,10 @@ app_name = 'api'
 # Create a router and register our viewsets with it.
 router = DefaultRouter()
 router.register(r'api', views.CaseViewSet)
-urlpatterns = router.urls
+
+urlpatterns = [
+    url(r'^cnr/(?P<SR>SR-[0-9]+)/(?P<CGP>CGP-[0-9]+)/$', views.cnr, name='cnr')
+]
+
+urlpatterns += router.urls
+
