@@ -4,7 +4,7 @@ import os
 
 REVIEW_ROOT = os.path.dirname(os.path.abspath(__file__))
 
-STATICFILES_DIRS = (
+review_staticfiles_dirs = (
     #This lets Django's collectstatic store our bundles
     os.path.join(REVIEW_ROOT, 'assets'), 
 )

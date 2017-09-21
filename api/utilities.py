@@ -1,8 +1,9 @@
 import csv
 import re
+import os
 
 def calculateAbsolute(chromosome, start, end):
-    lengths_ref = 'test/hg19.chrom.sizes'
+    lengths_ref = os.path.dirname(os.path.abspath(__file__)) + '/static/hg19.chrom.sizes.txt'
     lengths = {}
 
     chromosome = format_chromosome(chromosome)
