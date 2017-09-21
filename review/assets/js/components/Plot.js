@@ -27,20 +27,24 @@ const yScale = (props) => {
   }
 };
 
-export default (props) => {
 
-  const scales = { xScale: xScale(props), yScale: yScale(props) };
+export default class Plot extends React.Component {
+    constructor(props) {
+      super(props);
+    }
 
-
-  if (props.data) {
-    return <svg width={props.width} height={props.height}>
-      <DataPoints {...props} {...scales} />
-      <XYAxis {...props} {...scales} />
-    </svg>
-  }
-  else {
-    return (<div>Loading.... </div>)
-  }
+    render() {
+      const scales = { xScale: xScale(this.props), yScale: yScale(this.props) };
+      if (this.props.data) {
+        return <svg width={this.props.width} height={this.props.height}>
+          <DataPoints {...this.props} {...scales} />
+          <XYAxis {...this.props} {...scales} />
+        </svg>
+      }
+      else {
+        return (<div>Loading.... </div>)
+      }
+    }
 
 
 
