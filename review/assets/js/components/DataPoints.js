@@ -1,17 +1,22 @@
 import React from 'react';
 
-const renderPoints = (props) => {
+const renderLines = (props) => {
+
   return (coords, index) => {
-    const circleProps = {
-      cx: props.xScale(coords[0]),
-      cy: props.yScale(coords[1]),
-      r: .5,
+    const lineProps = {
+      x1: props.xScale(coords.absoluteStart),
+      y1: props.yScale(coords.log2),
+      x2: props.xScale(coords.absoluteEnd),
+      y2: props.yScale(coords.log2),
+      strokeWidth: 1,
+      stroke: 'black',
+      fill: 'black',
       key: index
     };
-    return <circle {...circleProps} />;
+    return <line {...lineProps} />;
   };
 };
 
 export default (props) => {
-  return <g>{ props.data.map(renderPoints(props)) }</g>
+  return <g>{ props.data.map(renderLines(props)) }</g>
 }

@@ -18,8 +18,6 @@ var CaseList = React.createClass({
 
     componentDidMount: function() {
         this.loadCases();
-        setInterval(this.loadCases, 
-                    this.props.pollInterval)
     }, 
     render: function() {
         if (this.state.data) {

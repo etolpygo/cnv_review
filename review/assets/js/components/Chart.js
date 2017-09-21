@@ -7,26 +7,31 @@ const styles = {
   padding : 50,
 };
 
-// The number of data points for the chart.
-const numDataPoints = 50000;
 
-// A function that returns a random number from 0 to max
-const randomNum     = (max) => Math.floor(Math.random() * max);
+export default class Chart extends React.Component {
+   constructor(props) {
+      super(props);
+   }
+   componentDidMount() {
+      this.loadData()
+   }
 
-// A function that creates an array of 50 elements of (x, y) coordinates.
-const randomDataSet = () => {
-  return Array.apply(null, {length: numDataPoints}).map(() => [randomNum(20000), randomNum(10000)]);
-}
-
-export default class Chart extends React.Component{
-  constructor(props) {
-    super(props);
-    this.state = { data: randomDataSet() };
-  }
+   loadData() {
+      $.ajax({
+          url: this.props.url,
+          datatype: 'json',
+          cache: false,
+          success: function(data) {
+              this.setState({data: data});
+          }.bind(this)
+      });
+   }
 
   render() {
-    return <div>
-      <Plot {...this.state} {...styles} />
-    </div>
+    return (
+      <div>
+        <Plot {...this.state} {...styles} /> 
+      </div>
+    )
   }
 }
