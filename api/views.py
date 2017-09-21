@@ -1,7 +1,7 @@
 from api.models import Case
 from api.serializers import CaseSerializer
 from rest_framework import viewsets
-from django.http import JsonResponse, HttpResponse
+from django.http import JsonResponse
 import csv
 import json
 from . import utilities
@@ -23,14 +23,15 @@ def cnr(request, SR, CGP):
             title = reader.fieldnames
             for row in reader:
                 dct = {title[i]:row[title[i]] for i in range(len(title))}
-                if (dct['chromosome'] == 'chr1'):
-                    absoluteStart = dct['start']
-                    absoluteEnd = dct['end']
-                else:
-                    absoluteStart, absoluteEnd = utilities.calculateAbsolute(dct['chromosome'], dct['start'], dct['end'])
-                
-                dct.update({'absoluteStart': absoluteStart, 'absoluteEnd': absoluteEnd})
-                csv_rows.extend([dct])
+                if -4 <= float(dct['log2']) <= 4:
+                    if (dct['chromosome'] == 'chr1'):
+                        absoluteStart = dct['start']
+                        absoluteEnd = dct['end']
+                    else:
+                        absoluteStart, absoluteEnd = utilities.calculateAbsolute(dct['chromosome'], dct['start'], dct['end'])
+                    
+                    dct.update({'absoluteStart': absoluteStart, 'absoluteEnd': absoluteEnd})
+                    csv_rows.extend([dct])
 
 
         data = json.dumps(csv_rows)
