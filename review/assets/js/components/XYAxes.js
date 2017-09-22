@@ -1,7 +1,9 @@
 import React  from 'react';
-import Axis   from './axis';
+import Axis   from './Axis';
+import XAxis   from './XAxis';
 
 export default (props) => {
+
   const xTopSettings = {
     translate: `translate(0, ${props.padding})`,
     scale: props.xScale,
@@ -23,9 +25,11 @@ export default (props) => {
     orient: 'Right'
   };
 
+  const xtickSettings = props.xticks
+
   return <g className="xy-axis">
-    <Axis {...xBottomSettings}/>
-    <Axis {...xTopSettings}/>
+    <XAxis {...xBottomSettings} {...xtickSettings}/>
+    <XAxis {...xTopSettings} {...xtickSettings}/>
     <Axis {...yLeftSettings}/>
     <Axis {...yRightSettings}/>
   </g>

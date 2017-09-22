@@ -1,7 +1,7 @@
 import React        from 'react';
 import * as d3      from "d3";
 import DataPoints   from './DataPoints';
-import XYAxis       from './XYaxis';
+import XYAxes       from './XYaxes';
 
 const xMax   = (data)  => d3.max(data, (d) => Number(d.absoluteEnd));
 const xMin   = (data)  => d3.min(data, (d) => Number(d.absoluteStart));
@@ -35,10 +35,10 @@ export default class Plot extends React.Component {
 
     render() {
       const scales = { xScale: xScale(this.props), yScale: yScale(this.props) };
-      if (this.props.data) {
+      if (this.props.data && this.props.xticks) {
         return <svg width={this.props.width} height={this.props.height}>
           <DataPoints {...this.props} {...scales} />
-          <XYAxis {...this.props} {...scales} />
+          <XYAxes {...this.props} {...scales} />
         </svg>
       }
       else {

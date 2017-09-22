@@ -20,9 +20,21 @@ export default class Chart extends React.Component {
       $.ajax({
           url: this.props.url,
           datatype: 'json',
-          cache: false,
+          cache: true,
           success: function(data) {
               this.setState({data: data});
+          }.bind(this)
+      });
+      $.ajax({
+          url: '/api/chromosome_lengths',
+          datatype: 'json',
+          cache: true,
+          success: function(d) {
+            var xticks = {
+              tickValues: d.starts,
+              tickFormat: d.chromosomes
+            }
+            this.setState({xticks: xticks});
           }.bind(this)
       });
    }

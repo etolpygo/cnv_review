@@ -1,0 +1,34 @@
+import React  from 'react';
+import * as d3Axis from 'd3-axis'
+import { select as d3Select } from 'd3-selection'
+import Axis   from './axis';
+
+
+export default class XAxis extends Axis {
+	constructor(props) {
+		super(props);
+	}
+
+	componentDidMount() {
+		this.renderAxis();
+	}	
+
+	renderAxis() {
+		const axisType = `axis${this.props.orient}`
+		const axis = d3Axis[axisType]()
+			.scale(this.props.scale)
+			.tickValues(this.props.tickValues)
+			.tickFormat((d, i) => this.props.tickFormat[i])
+		d3Select(this.axisElement).call(axis)
+	}
+
+	render() {
+		return (
+			<g
+				className={`Axis Axis-${this.props.orient}`}
+				ref={(el) => { this.axisElement = el; }}
+				transform={this.props.translate}
+			/>
+		)
+	}
+}
