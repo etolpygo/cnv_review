@@ -25,3 +25,10 @@ def format_chromosome(chromosome):
         (txt,num) = match.groups()
         chromosome = txt + num.zfill(2)
     return chromosome.lower()
+
+def unformat_chromosome(chromosome):
+    match = re.match(r"([a-z]+)([0-9]+)", chromosome, re.I)
+    if match:
+        (txt,num) = match.groups()
+        chromosome = txt.lower() + num.lstrip('0') 
+    return chromosome.replace('x', 'X').replace('y', 'Y')
