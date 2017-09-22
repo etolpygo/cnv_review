@@ -5,14 +5,7 @@ import Axis   from './axis';
 
 
 export default class XAxis extends Axis {
-	constructor(props) {
-		super(props);
-	}
-
-	componentDidMount() {
-		this.renderAxis();
-	}	
-
+	
 	renderAxis() {
 		const axisType = `axis${this.props.orient}`
 		const axis = d3Axis[axisType]()
