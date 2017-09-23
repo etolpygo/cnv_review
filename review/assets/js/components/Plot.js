@@ -9,34 +9,40 @@ const xMin   = (data)  => d3.min(data, (d) => Number(d.absoluteStart));
 const yMax   = (data)  => d3.max(data, (d) => Number(d.log2));
 const yMin   = (data)  => d3.min(data, (d) => Number(d.log2));
 
-// Returns a function that "scales" X coordinates from the data to fit the chart
-const xScale = (props) => {
-  if (props.data) {
-    return d3.scaleLinear()
-      .domain([xMin(props.data), xMax(props.data)])
-      .range([props.padding, (props.width - props.padding * 2)]);
-  }
-};
-
-// Returns a function that "scales" Y coordinates from the data to fit the chart
-const yScale = (props) => {
-  if (props.data) {
-    return d3.scaleLinear()
-      .domain([yMin(props.data), yMax(props.data)])
-      .range([props.height - props.padding, props.padding]);
-  }
-};
-
 
 export default class Plot extends React.Component {
     constructor(props) {
       super(props);
+      this.updateD3(props);
+    }
+
+    componentWillUpdate(nextProps) {
+      this.updateD3(nextProps);
+    }
+
+    updateD3(props) {
+      console.log(props);
+      const { data, zoomTransform } = props;
+   
+      if (data) {
+        this.xScale = d3.scaleLinear()
+              .domain([xMin(data), xMax(data)])
+              .range([props.padding, (props.width - props.padding * 2)]);
+
+        this.yScale = d3.scaleLinear()
+              .domain([yMin(data), yMax(data)])
+              .range([props.height - props.padding, props.padding]);
+      }
+   
+      if (zoomTransform) {
+        this.xScale.domain(zoomTransform.rescaleX(this.xScale).domain());
+      }
     }
 
     render() {
-      const scales = { xScale: xScale(this.props), yScale: yScale(this.props) };
       if (this.props.data && this.props.xticks) {
-        return <svg width={this.props.width} height={this.props.height}>
+        const scales = { xScale: this.xScale, yScale: this.yScale };
+        return <svg width={this.props.width} height={this.props.height} ref="plot">
           <DataPoints {...this.props} {...scales} />
           <XYAxes {...this.props} {...scales} />
         </svg>

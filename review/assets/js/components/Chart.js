@@ -1,5 +1,6 @@
 import React from 'react';
 import Plot from './Plot';
+import * as d3      from "d3";
 
 const styles = {
   width   : 1000,
@@ -11,10 +12,29 @@ const styles = {
 export default class Chart extends React.Component {
    constructor(props) {
       super(props);
+      this.state = {
+        zoomTransform: null
+      }
+      this.zoom = d3.zoom()
+                  .scaleExtent([0, 3100000000])
+                  .on("zoom", this.zoomed.bind(this))
    }
    componentDidMount() {
-      this.loadData()
+      this.loadData();
+      d3.select(this.refs.svg)
+        .call(this.zoom);
    }
+
+   componentDidUpdate() {
+      d3.select(this.refs.svg)
+        .call(this.zoom)
+    }
+
+    zoomed() {
+      this.setState({ 
+        zoomTransform: d3.event.transform
+      });
+    }
 
    loadData() {
       $.ajax({
@@ -40,9 +60,10 @@ export default class Chart extends React.Component {
    }
 
   render() {
+    const { zoomTransform } = this.state;
     return (
-      <div>
-        <Plot {...this.state} {...styles} /> 
+      <div ref="svg">
+        <Plot {...this.state} {...styles} zoomTransform={zoomTransform} /> 
       </div>
     )
   }
