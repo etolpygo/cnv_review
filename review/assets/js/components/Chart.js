@@ -44,11 +44,15 @@ export default class Chart extends React.Component {
 	}
 
 	render() {
-		const { zoomTransform } = this.state;
-		return (
-			<div ref="svg">
-				<Plot {...this.state} {...styles} zoomTransform={zoomTransform} /> 
-			</div>
-		)
+		if (this.state.cnr_data && this.state.xticks) {
+			return (
+				<div ref="svg">
+					<Plot {...this.state} {...styles} /> 
+				</div>
+			)
+		}
+		else {
+			return (<div>Loading.... </div>);
+		}
 	}
 }
