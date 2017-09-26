@@ -18,5 +18,5 @@ const renderLines = (props) => {
 };
 
 export default (props) => {
-  return <g>{ props.data.map(renderLines(props)) }</g>
+  return <g>{ props.cnr_data.map(renderLines(props)) }</g>
 }

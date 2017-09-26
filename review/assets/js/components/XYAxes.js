@@ -25,7 +25,7 @@ export default (props) => {
     orient: 'Right'
   };
 
-  const xtickSettings = props.xticks
+  const xtickSettings = props.xticks;
 
   return <g className="xy-axis">
     <XAxis {...xBottomSettings} {...xtickSettings}/>

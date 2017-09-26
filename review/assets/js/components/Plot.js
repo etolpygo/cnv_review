@@ -21,16 +21,15 @@ export default class Plot extends React.Component {
     }
 
     updateD3(props) {
-      console.log(props);
-      const { data, zoomTransform } = props;
+      const { cnr_data, zoomTransform } = props;
    
-      if (data) {
+      if (cnr_data) {
         this.xScale = d3.scaleLinear()
-              .domain([xMin(data), xMax(data)])
+              .domain([xMin(cnr_data), xMax(cnr_data)])
               .range([props.padding, (props.width - props.padding * 2)]);
 
         this.yScale = d3.scaleLinear()
-              .domain([yMin(data), yMax(data)])
+              .domain([yMin(cnr_data), yMax(cnr_data)])
               .range([props.height - props.padding, props.padding]);
       }
    
@@ -40,7 +39,7 @@ export default class Plot extends React.Component {
     }
 
     render() {
-      if (this.props.data && this.props.xticks) {
+      if (this.props.cnr_data && this.props.xticks) {
         const scales = { xScale: this.xScale, yScale: this.yScale };
         return <svg width={this.props.width} height={this.props.height} ref="plot">
           <DataPoints {...this.props} {...scales} />
