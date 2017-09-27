@@ -21,11 +21,9 @@ export default class Chart extends React.Component {
 	  this.zoom = d3.zoom()
 				  // only zoom in, e.g. between 1x and 5000x
 				  .scaleExtent([1, 5000])
-
-				  // .translateExtent([[0, 0], [(styles.width - styles.padding * 2), (styles.height - styles.padding * 2)]])
-				  //.extent([[0, 0], [(styles.width - styles.padding * 2), (styles.height - styles.padding * 2)]])
-				  // .translateExtent([[0, 0], [styles.width, styles.height]])
-				  // .extent([[0, 0], [styles.width, styles.height]])
+				  // restrict panning to edges of the graph
+				  .translateExtent([[styles.padding, styles.padding], [(styles.width-styles.padding), (styles.height - styles.padding * 2)]])
+    			  .extent([[styles.padding, styles.padding], [(styles.width-styles.padding), (styles.height - styles.padding * 2)]])
 				  .on("zoom", this.zoomed.bind(this))
    }
 
@@ -45,9 +43,8 @@ export default class Chart extends React.Component {
 
 	zoomed() {
 		var e = d3.event;
-		// var tx = Math.min(0, Math.max(e.transform[0], styles.width - styles.width * e.scale));
 		this.setState({ 
-		zoomEvent: e
+			zoomEvent: e
 		});
 	}
 
