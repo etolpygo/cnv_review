@@ -11,38 +11,48 @@ const yMin   = (data)  => d3.min(data, (d) => Number(d.log2));
 
 
 export default class Plot extends React.Component {
-    constructor(props) {
-      super(props);
-      this.updateD3(props);
-    }
+	constructor(props) {
+	  super(props);
+	  this.updateD3(props);
+	}
 
-    componentWillUpdate(nextProps) {
-      this.updateD3(nextProps);
-    }
+	componentWillUpdate(nextProps) {
+	  this.updateD3(nextProps);
+	}
 
-    updateD3(props) {
-      const { cnr_data, zoomTransform } = props;
-   
-      this.xScale = d3.scaleLinear()
-            .domain([xMin(cnr_data), xMax(cnr_data)])
-            .range([props.padding, (props.width - props.padding * 2)]);
+	updateD3(props) {
 
-      this.yScale = d3.scaleLinear()
-            .domain([yMin(cnr_data), yMax(cnr_data)])
-            .range([props.height - props.padding, props.padding]);
-   
-      if (zoomTransform) {
-        this.xScale.domain(zoomTransform.rescaleX(this.xScale).domain());
-      }
-    }
+		console.log(props);
+		const { cnr_data, zoomEvent } = props;
 
-    render() {
-      const scales = { xScale: this.xScale, yScale: this.yScale };
-      return <svg width={this.props.width} height={this.props.height} ref="plot">
-        <DataPoints {...this.props} {...scales} />
-        <XYAxes {...this.props} {...scales} />
-      </svg>
-    }
+		this.xScale = d3.scaleLinear()
+			.domain([xMin(cnr_data), xMax(cnr_data)])
+			.range([props.padding, (props.width - props.padding)]);
+
+		this.yScale = d3.scaleLinear()
+			.domain([yMin(cnr_data), yMax(cnr_data)])
+			.range([props.height - props.padding, props.padding]);
+
+		if (zoomEvent) {
+			this.xScale.domain(zoomEvent.transform.rescaleX(this.xScale).domain());
+		}
+	}
+
+	render() {
+	  const scales = { xScale: this.xScale, yScale: this.yScale };
+	  return <svg width={this.props.width} height={this.props.height} ref="plot">
+		<DataPoints {...this.props} {...scales} clip-path="url(#chartClip)" />
+		<XYAxes {...this.props} {...scales} />
+		{/* <clipPath id="chartClip"> */}
+			<rect id="clipRect"
+				  x={this.props.padding}
+				  y={this.props.padding}
+				  width={(this.props.width - this.props.padding * 2)} 
+				  height={(this.props.height - this.props.padding * 2)} 
+			/>
+		{/* </clipPath> */}
+	  </svg>
+	}
 
 
 

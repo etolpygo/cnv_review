@@ -20,7 +20,7 @@ export default (props) => {
     orient: 'Left'
   };
   const yRightSettings = {
-    translate: `translate(${props.width - (props.padding * 2)}, 0)`,
+    translate: `translate(${props.width - props.padding}, 0)`,
     scale: props.yScale,
     orient: 'Right'
   };

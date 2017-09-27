@@ -4,9 +4,26 @@
         <title>CNV Review</title>
         <style type='text/css'>
 	    	* {
-				margin: 0;
-				padding: 0;
-			}
+  				margin: 0;
+  				padding: 0;
+  			}
+        .area {
+          fill: steelblue;
+          clip-path: url(#clip);
+        }
+
+        .zoom {
+          cursor: move;
+          fill: none;
+          pointer-events: all;
+        }
+
+        #clipRect {
+          fill: blue;
+                stroke: pink;
+                stroke-width: 1;
+                fill-opacity: 0.2;
+        }
         </style>
     </head>
     <body>
