@@ -11,7 +11,8 @@ const renderLines = (props) => {
 			strokeWidth: 1,
 			stroke: 'black',
 			fill: 'black',
-			key: index
+			key: index,
+			clipPath: props.clipPath
 		};
 		return <line {...lineProps} />;
 	};

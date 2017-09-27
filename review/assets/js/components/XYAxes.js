@@ -28,8 +28,8 @@ export default (props) => {
   const xtickSettings = props.xticks;
 
   return <g className="xy-axis">
-    <XAxis {...xBottomSettings} {...xtickSettings}/>
-    <XAxis {...xTopSettings} {...xtickSettings}/>
+    <XAxis {...xBottomSettings} {...xtickSettings} />
+    <XAxis {...xTopSettings} {...xtickSettings} />
     <Axis {...yLeftSettings}/>
     <Axis {...yRightSettings}/>
   </g>
