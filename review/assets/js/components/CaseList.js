@@ -1,24 +1,27 @@
 import React  from 'react';
+import * as d3 from 'd3';
+import _ from 'lodash';
 
 var CaseList = React.createClass({
-    loadCases: function(){
-        $.ajax({
-            url: this.props.url,
-            datatype: 'json',
-            cache: false,
-            success: function(data) {
-                this.setState({data: data});
-            }.bind(this)
-        })
+    loadCases: function(callback = _.noop){
+        d3.queue()
+          .defer(d3.json, this.props.url)
+          .await((error, cases_data) => {
+
+              callback({
+                  data: cases_data
+              });
+          });
     },
 
     getInitialState: function() {
         return {data: []};
     },
 
-    componentDidMount: function() {
-        this.loadCases();
+    componentWillMount: function() {
+        this.loadCases(data => this.setState(data));
     }, 
+
     render: function() {
         if (this.state.data) {
             var caseNodes = this.state.data.map(function(it){
