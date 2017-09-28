@@ -1,9 +1,10 @@
 import React from 'react';
-import Plot from './Chart/Plot';
 import * as d3      from "d3";
 import 'bootstrap/dist/css/bootstrap.css';
 
 import { loadData } from './DataHandling';
+import Plot from './Chart/Plot';
+import Controls from './Controls';
 
 const styles = {
   width   : 750,
@@ -51,6 +52,7 @@ export default class Review extends React.Component {
 
 	render() {
 		let chartArea;
+		let controlsArea;
 		if (this.state.cnr_data && this.state.xticks) {
 			chartArea = (
 				<div>
@@ -60,16 +62,22 @@ export default class Review extends React.Component {
 					<div>Scroll up to zoom in; scroll down to zoom out.</div>
 				</div>
 			);
+			controlsArea = (
+				<Controls />
+			);
 		}
 		else {
 			chartArea = (
 				<div>Loading.... </div>
 			);
+			controlsArea = (
+				<div></div>
+			);
 		}
 		return (
 			<div className="appWrapper">
 				<div className="sideBar">
-					some sort of controls go here
+					{controlsArea}
 				</div>
 				<div className="graphContainer">
 					{chartArea} 
