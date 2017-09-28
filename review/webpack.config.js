@@ -12,6 +12,7 @@ module.exports = {
     entry: {
         index: './assets/js/index.js',
         review: './assets/js/review.js',
+        styles: './assets/css/styles.css'
     },
     
     output: {
@@ -41,8 +42,8 @@ module.exports = {
             },
             {
                test: /\.css$/,
-               exclude: ['/node_modules/', /\.jsx?$/, /(\/fonts)/],
-               loader: 'css-loader'
+               exclude: [/\.jsx?$/, /(\/fonts)/],
+               use: [ 'style-loader', 'css-loader' ]
             },
             {   
                 test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/, 
