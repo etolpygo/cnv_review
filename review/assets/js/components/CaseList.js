@@ -24,8 +24,11 @@ var CaseList = React.createClass({
 
     render: function() {
         if (this.state.data) {
-            var caseNodes = this.state.data.map(function(it){
-                return <li> {it.TestOrderID}: {it.PatientID} </li>
+            var caseNodes = this.state.data.map(function(it, i){
+                let k = "case-" + it.TestOrderID;
+                return (
+                    <li key={k}> {it.TestOrderID}: {it.PatientID} </li>
+                );
             })
         }
         return (
