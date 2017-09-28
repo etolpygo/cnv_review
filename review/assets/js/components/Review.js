@@ -18,7 +18,12 @@ export default class Review extends React.Component {
    constructor(props) {
 	  super(props);
 	  this.state = {
-		zoomTransform: null
+		zoomTransform: null,
+		filteredBy: {
+	      absLoc: '*',
+	      chromosome: '*',
+	      chromosomeLoc: '*'
+	    }
 	  }
 	  this.zoom = d3.zoom()
 				  // only zoom in, e.g. between 1x and 5000x
@@ -33,21 +38,49 @@ export default class Review extends React.Component {
 		loadData(this.props.cnr_url, data => this.setState(data));
 	}
 
-   componentDidMount() {
+    componentDidMount() {
 	  d3.select(this.refs.svg)
 		.call(this.zoom);
-   }
+    }
 
-   componentDidUpdate() {
+    componentDidUpdate() {
 		d3.select(this.refs.svg)
 		  .call(this.zoom)
 	}
 
+	shouldComponentUpdate(nextProps, nextState) {
+	    const { cnr_data, filteredBy } = this.state;
+	    const changedData = (cnr_data && cnr_data.length) !== (nextState.cnr_data && nextState.cnr_data.length);
+	    const changedFilters = Object.keys(filteredBy)
+	                                 .some(
+	                                    k => filteredBy[k] !== nextState.filteredBy[k]
+	                                 );
+	    return changedData || changedFilters;
+	}
+
+	// this will no longer trigger a re-draw using current shouldComponentUpdate
 	zoomed() {
 		var e = d3.event;
 		this.setState({ 
 			zoomEvent: e
 		});
+	}
+
+	updateDataFilter(filteredBy) {
+	    this.setState({
+	      	filteredBy: filteredBy
+	    });
+	    console.log('after updating data filter, current state is:');
+	    console.log(this.state);
+
+	    // for now.
+	    this.zoomToChromosome();
+	}
+
+	zoomToChromosome() {
+		// TODO filter data by set filters
+
+		// ticks can be trimmed here as well
 	}
 
 	render() {
@@ -63,7 +96,7 @@ export default class Review extends React.Component {
 				</div>
 			);
 			controlsArea = (
-				<Controls />
+				<Controls updateDataFilter={this.updateDataFilter.bind(this)} />
 			);
 		}
 		else {
