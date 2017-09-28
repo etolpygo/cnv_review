@@ -1,0 +1,56 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+}
+
+/* layout styles */
+
+.outerWrapper {
+	width: 100%;
+	height: 100%;
+}
+
+.topNav {
+	width: 100%;
+	height: 75px;
+	background-color: #333333;
+	color: #dddddd;
+	padding: 20px 10px;
+}
+
+.appWrapper {
+	width: 100%;
+	height: calc(100% - 75px);
+	position: relative;
+}
+
+.sideBar {
+	position: fixed;
+	top: 75px;
+	left: 0;
+	width: 130px;
+	background-color: #cccccc;
+	border-right: 1px solid #999999;
+	height: calc(100% - 75px);
+	padding: 20px 10px;
+}
+
+.graphContainer {
+	margin-left: 130px;
+	margin-top: 10px;
+	height: calc(100% - 75px);
+	float: left;
+	padding: 20px 10px;
+}
+
+
+/* chart styles */
+
+.Axis {
+	shape-rendering: crispEdges;
+}
