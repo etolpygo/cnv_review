@@ -15,7 +15,7 @@ export default class Axis extends React.Component {
     const axisType = `axis${this.props.orient}`
     const axis = d3Axis[axisType]()
       .scale(this.props.scale)
-      .ticks([6])
+      .ticks(this.props.numTicks)
     d3Select(this.axisElement).call(axis)
   }
 

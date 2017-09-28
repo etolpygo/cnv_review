@@ -17,12 +17,20 @@ export default (props) => {
   const yLeftSettings = {
     translate: `translate(${props.padding}, 0)`,
     scale: props.yScale,
+    numTicks: 6,
     orient: 'Left'
   };
   const yRightSettings = {
     translate: `translate(${props.width - props.padding}, 0)`,
     scale: props.yScale,
+    numTicks: 6,
     orient: 'Right'
+  };
+  const xCenterSettings = {
+    translate: `translate(0, ${((props.height / 2) - 3)})`,
+    scale: props.xScale,
+    orient: 'Top',
+    numTicks: 0
   };
 
   const xtickSettings = props.xticks;
@@ -32,5 +40,6 @@ export default (props) => {
     <XAxis {...xTopSettings} {...xtickSettings} />
     <Axis {...yLeftSettings}/>
     <Axis {...yRightSettings}/>
+    <Axis {...xCenterSettings}/>
   </g>
 }
