@@ -1,6 +1,10 @@
 {% extends '../base.html' %}
 {% load render_bundle from webpack_loader %}
 
+{% block top_nav %}
+	the top nav on the review page might be different
+{% endblock %}
+
 {% block content %}
     <div id="cases_container"></div>
     {% render_bundle 'index' %}

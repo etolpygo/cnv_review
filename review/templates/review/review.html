@@ -1,6 +1,10 @@
 {% extends '../base.html' %}
 {% load render_bundle from webpack_loader %}
 
+{% block top_nav %}
+	some stuff for the top nar
+{% endblock %}
+
 {% block content %}
     <div id="review_container"></div>
     {% render_bundle 'review' %}

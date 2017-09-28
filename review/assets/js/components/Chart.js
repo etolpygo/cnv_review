@@ -1,13 +1,14 @@
 import React from 'react';
 import Plot from './Plot';
 import * as d3      from "d3";
+import 'bootstrap/dist/css/bootstrap.css';
 
 import { loadData } from './DataHandling';
 
 const styles = {
   width   : 750,
   height  : 400,
-  padding : 50,
+  padding : 30,
 };
 
 
@@ -49,16 +50,31 @@ export default class Chart extends React.Component {
 	}
 
 	render() {
+		let chartArea;
 		if (this.state.cnr_data && this.state.xticks) {
-			return (
-				<div ref="svg">
-					<Plot {...this.state} {...styles} /> 
+			chartArea = (
+				<div>
+					<div ref="svg">
+						<Plot {...this.state} {...styles} /> 
+					</div>
 					<div>Scroll up to zoom in; scroll down to zoom out.</div>
 				</div>
 			);
 		}
 		else {
-			return (<div>Loading.... </div>);
+			chartArea = (
+				<div>Loading.... </div>
+			);
 		}
+		return (
+			<div className="appWrapper">
+				<div className="sideBar">
+					some sort of controls go here
+				</div>
+				<div className="graphContainer">
+					{chartArea} 
+				</div>
+			</div>
+		);
 	}
 }

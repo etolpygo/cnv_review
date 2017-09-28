@@ -1,6 +1,7 @@
 import React  from 'react';
 import * as d3 from 'd3';
 import _ from 'lodash';
+import 'bootstrap/dist/css/bootstrap.css';
 
 var CaseList = React.createClass({
     loadCases: function(callback = _.noop){

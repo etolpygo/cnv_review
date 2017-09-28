@@ -1,7 +1,6 @@
 import React from 'react';
 
 const renderLines = (props) => {
-
 	return (coords, index) => {
 		const lineProps = {
 			x1: props.xScale(coords.absoluteStart),
