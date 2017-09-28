@@ -1,5 +1,5 @@
 import React from 'react';
-import Plot from './Plot';
+import Plot from './Chart/Plot';
 import * as d3      from "d3";
 import 'bootstrap/dist/css/bootstrap.css';
 
@@ -12,7 +12,7 @@ const styles = {
 };
 
 
-export default class Chart extends React.Component {
+export default class Review extends React.Component {
 
    constructor(props) {
 	  super(props);
