@@ -53,7 +53,7 @@ export default class Chart extends React.Component {
 			return (
 				<div ref="svg">
 					<Plot {...this.state} {...styles} /> 
-					<span>Scroll up to zoom in; scroll down to zoom out.</span>
+					<div>Scroll up to zoom in; scroll down to zoom out.</div>
 				</div>
 			);
 		}
