@@ -29,7 +29,7 @@ export default class Plot extends React.Component {
 			.range([props.padding, (props.width - props.padding)]);
 
 		this.yScale = d3.scaleLinear()
-			.domain([yMin(cnr_data), yMax(cnr_data)])
+			.domain([-4, 4])
 			.range([props.height - props.padding, props.padding]);
 
 		if (zoomEvent.transform) {
