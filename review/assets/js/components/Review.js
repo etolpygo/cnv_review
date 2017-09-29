@@ -34,16 +34,19 @@ export default class Review extends React.Component {
 					  // restrict panning to edges of the graph
 					  .translateExtent([[styles.padding, styles.padding], [(styles.width-styles.padding), (styles.height - styles.padding * 2)]])
 	    			  .extent([[styles.padding, styles.padding], [(styles.width-styles.padding), (styles.height - styles.padding * 2)]])
-					  .on("zoom", this.zoomed.bind(this))
+					  .on("zoom", this.zoomed.bind(this));
+
+		this.updateDataFilter = this.updateDataFilter.bind(this)
    }
 
 	componentWillMount() {
 		loadData(this.props.cnr_url, data => this.setState(data));
 	}
 
+
     componentDidMount() {
-	  d3.select(this.refs.svg)
-		.call(this.zoom);
+		d3.select(this.refs.svg)
+		  .call(this.zoom);
     }
 
     componentDidUpdate() {
@@ -84,6 +87,7 @@ export default class Review extends React.Component {
 
 		if (this.state.cnr_data && this.state.xticks) {
 			const filteredCNR = this.state.cnr_data.filter(this.state.chromosomeFilter)
+
 			chartArea = (
 				<div>
 					<div ref="svg">
@@ -96,7 +100,9 @@ export default class Review extends React.Component {
 				</div>
 			);
 			controlsArea = (
-				<Controls updateDataFilter={this.updateDataFilter.bind(this)} />
+				<Controls updateDataFilter={this.updateDataFilter} 
+						  allowedChromosomeValues={this.state.allowedChromosomeValues}
+				/>
 			);
 		}
 		else {

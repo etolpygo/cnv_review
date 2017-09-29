@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import LocationInput from './LocationInput';
 
@@ -12,6 +13,7 @@ export default class Controls extends React.Component {
 			chromosome: '*',
 			chromosomeLoc: '*'
 		}
+		this.updateLocationFilter = this.updateLocationFilter.bind(this)
 	}
 
 	componentDidUpdate() {
@@ -23,6 +25,9 @@ export default class Controls extends React.Component {
     	let chromosomeFilter;
     	if (chromosome !== '*') {
 	    	chromosomeFilter = (d) => d.chromosome === chromosome;
+	    }
+	    else {
+	    	chromosomeFilter = () => true;
 	    }
     	this.props.updateDataFilter(chromosomeFilter, { chromosome: chromosome }
     	);
@@ -36,9 +41,16 @@ export default class Controls extends React.Component {
 		return(
 			<div>
 				Go to:<br />
-				<LocationInput updateLocationFilter={this.updateLocationFilter.bind(this)} />
+				<LocationInput updateLocationFilter={this.updateLocationFilter} 
+							   allowedChromosomeValues={this.props.allowedChromosomeValues}
+				/>
 			</div>
 		);
 	}
 
 }
+
+Controls.propTypes = {
+  updateDataFilter: PropTypes.func.isRequired,
+  allowedChromosomeValues: PropTypes.array.isRequired
+};

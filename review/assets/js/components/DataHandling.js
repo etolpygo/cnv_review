@@ -12,9 +12,12 @@ export const loadData = (cnr_url, callback = _.noop) => {
             tickFormat: chromosome_lengths.chromosomes
           };
 
+          let allowedChrValues = _.uniq(_.map(cnr_data, 'chromosome'));
+
           callback({
               cnr_data: cnr_data,
-              xticks: xTicks
+              xticks: xTicks,
+              allowedChromosomeValues: allowedChrValues
           });
       });
 };
