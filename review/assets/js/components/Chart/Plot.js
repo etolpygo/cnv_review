@@ -38,25 +38,22 @@ export default class Plot extends React.Component {
 	}
 
 	render() {
-	  const scales = { xScale: this.xScale, yScale: this.yScale };
-	  return (
-	  	<svg width={this.props.width} height={this.props.height} ref="plot">
-	  		<defs>
-	  			<clipPath id="chartClip">
+		const scales = { xScale: this.xScale, yScale: this.yScale };
+		return (
+			<svg width={this.props.width} height={this.props.height} ref="plot">
+				<defs>
+					<clipPath id="chartClip">
 					<rect x={this.props.padding}
 						  y={this.props.padding}
 						  width={(this.props.width - this.props.padding * 2)} 
 						  height={(this.props.height - this.props.padding * 2)} 
 					/>
 				</clipPath>
-	  		</defs>
+				</defs>
 			<DataPoints {...this.props} {...scales} clipPath="url(#chartClip)" />
 			<XYAxes {...this.props} {...scales} />
 			
-	  	</svg>
-	  )
+			</svg>
+		)
 	}
-
-
-
 }

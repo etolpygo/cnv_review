@@ -23,7 +23,6 @@ export default class Review extends React.Component {
 			},
 			chromosomeFilter: () => true,
 			filteredBy: {
-				absLoc: '*',
 				chromosome: '*',
 				chromosomeLoc: '*'
 		    }

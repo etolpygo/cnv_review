@@ -5,7 +5,7 @@ export default class LocationInput extends React.Component {
 	constructor(props) {
 	    super(props);
 	    this.handleKeyPress = this.handleKeyPress.bind(this);
-	  }
+	}
 
 	handleKeyPress(e) {
 	    if (e.key === 'Enter') {

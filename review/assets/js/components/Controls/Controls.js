@@ -2,47 +2,58 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import LocationInput from './LocationInput';
-
+import ErrorDisplay from './ErrorDisplay';
 
 export default class Controls extends React.Component {
 
 	constructor(props) {
 	  	super(props);
 	  	this.state = {
-			absLoc: '*',
-			chromosome: '*',
-			chromosomeLoc: '*'
+			chromosome: '',
+			chromosomeLoc: '',
+			isValidInput: true,
 		}
 		this.updateLocationFilter = this.updateLocationFilter.bind(this)
 	}
 
 	componentDidUpdate() {
-        this.sendUpdateToReview();
+		if (this.state.isValidInput) {
+	        this.sendUpdateToReview();
+	    }
     }
 
     sendUpdateToReview() {
     	const chromosome = this.state.chromosome;
     	let chromosomeFilter;
-    	if (chromosome !== '*') {
+    	if (chromosome !== '') {
 	    	chromosomeFilter = (d) => d.chromosome === chromosome;
 	    }
 	    else {
 	    	chromosomeFilter = () => true;
 	    }
-    	this.props.updateDataFilter(chromosomeFilter, { chromosome: chromosome }
-    	);
+    	this.props.updateDataFilter(chromosomeFilter, { chromosome: chromosome });
+    }
+
+    validateChromosome(chromosome) {
+    	let allowedChromosomeValues = this.props.allowedChromosomeValues;
+    	return ((chromosome === '') || (allowedChromosomeValues.indexOf(chromosome) >= 0));
     }
 
     updateLocationFilter(chromosome) {
-        this.setState({chromosome: chromosome});
+        this.setState({
+        	chromosome: chromosome,
+        	isValidInput: this.validateChromosome(chromosome)
+        });
     }
 
 	render() {
 		return(
 			<div>
 				Go to:<br />
-				<LocationInput updateLocationFilter={this.updateLocationFilter} 
-							   allowedChromosomeValues={this.props.allowedChromosomeValues}
+				<LocationInput updateLocationFilter={this.updateLocationFilter} />
+				<br />
+				<ErrorDisplay isValidInput={this.state.isValidInput}
+							  enteredValue={this.state.chromosome}
 				/>
 			</div>
 		);
