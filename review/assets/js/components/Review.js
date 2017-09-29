@@ -18,11 +18,13 @@ export default class Review extends React.Component {
    constructor(props) {
 	  super(props);
 	  this.state = {
-		zoomTransform: null,
+		zoomEvent: {
+			transform: null
+		},
 		filteredBy: {
-	      absLoc: '*',
-	      chromosome: '*',
-	      chromosomeLoc: '*'
+			absLoc: '*',
+			chromosome: '*',
+			chromosomeLoc: '*'
 	    }
 	  }
 	  this.zoom = d3.zoom()
@@ -49,16 +51,18 @@ export default class Review extends React.Component {
 	}
 
 	shouldComponentUpdate(nextProps, nextState) {
-	    const { cnr_data, filteredBy } = this.state;
+	    const { cnr_data, filteredBy, zoomEvent } = this.state;
+
 	    const changedData = (cnr_data && cnr_data.length) !== (nextState.cnr_data && nextState.cnr_data.length);
 	    const changedFilters = Object.keys(filteredBy)
 	                                 .some(
 	                                    k => filteredBy[k] !== nextState.filteredBy[k]
 	                                 );
-	    return changedData || changedFilters;
+	    const changedZoom = zoomEvent.transform !== nextState.zoomEvent.transform
+
+	    return changedData || changedFilters || changedZoom;
 	}
 
-	// this will no longer trigger a re-draw using current shouldComponentUpdate
 	zoomed() {
 		var e = d3.event;
 		this.setState({ 
@@ -70,11 +74,10 @@ export default class Review extends React.Component {
 	    this.setState({
 	      	filteredBy: filteredBy
 	    });
-	    console.log('after updating data filter, current state is:');
-	    console.log(this.state);
+	}
 
-	    // for now.
-	    this.zoomToChromosome();
+	componentWillUpdate(nextProps, nextState) {
+	  this.zoomToChromosome();
 	}
 
 	zoomToChromosome() {

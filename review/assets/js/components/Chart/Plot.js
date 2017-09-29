@@ -33,7 +33,7 @@ export default class Plot extends React.Component {
 			.domain([yMin(cnr_data), yMax(cnr_data)])
 			.range([props.height - props.padding, props.padding]);
 
-		if (zoomEvent) {
+		if (zoomEvent.transform) {
 			this.xScale.domain(zoomEvent.transform.rescaleX(this.xScale).domain());
 		}
 	}
