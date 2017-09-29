@@ -16,24 +16,25 @@ const styles = {
 export default class Review extends React.Component {
 
    constructor(props) {
-	  super(props);
-	  this.state = {
-		zoomEvent: {
-			transform: null
-		},
-		filteredBy: {
-			absLoc: '*',
-			chromosome: '*',
-			chromosomeLoc: '*'
-	    }
-	  }
-	  this.zoom = d3.zoom()
-				  // only zoom in, e.g. between 1x and 5000x
-				  .scaleExtent([1, 5000])
-				  // restrict panning to edges of the graph
-				  .translateExtent([[styles.padding, styles.padding], [(styles.width-styles.padding), (styles.height - styles.padding * 2)]])
-    			  .extent([[styles.padding, styles.padding], [(styles.width-styles.padding), (styles.height - styles.padding * 2)]])
-				  .on("zoom", this.zoomed.bind(this))
+		super(props);
+		this.state = {
+			zoomEvent: {
+				transform: null
+			},
+			chromosomeFilter: () => true,
+			filteredBy: {
+				absLoc: '*',
+				chromosome: '*',
+				chromosomeLoc: '*'
+		    }
+		}
+		this.zoom = d3.zoom()
+					  // only zoom in, e.g. between 1x and 5000x
+					  .scaleExtent([1, 5000])
+					  // restrict panning to edges of the graph
+					  .translateExtent([[styles.padding, styles.padding], [(styles.width-styles.padding), (styles.height - styles.padding * 2)]])
+	    			  .extent([[styles.padding, styles.padding], [(styles.width-styles.padding), (styles.height - styles.padding * 2)]])
+					  .on("zoom", this.zoomed.bind(this))
    }
 
 	componentWillMount() {
@@ -70,30 +71,26 @@ export default class Review extends React.Component {
 		});
 	}
 
-	updateDataFilter(filteredBy) {
+	updateDataFilter(chromosomeFilter, filteredBy) {
 	    this.setState({
-	      	filteredBy: filteredBy
+	      	filteredBy: filteredBy,
+	      	chromosomeFilter: chromosomeFilter
 	    });
-	}
-
-	componentWillUpdate(nextProps, nextState) {
-	  this.zoomToChromosome();
-	}
-
-	zoomToChromosome() {
-		// TODO filter data by set filters
-
-		// ticks can be trimmed here as well
 	}
 
 	render() {
 		let chartArea;
 		let controlsArea;
+
 		if (this.state.cnr_data && this.state.xticks) {
+			const filteredCNR = this.state.cnr_data.filter(this.state.chromosomeFilter)
 			chartArea = (
 				<div>
 					<div ref="svg">
-						<Plot {...this.state} {...styles} /> 
+						<Plot 	cnr_data={filteredCNR} 
+								zoomEvent={this.state.zoomEvent}
+								xticks={this.state.xticks}
+							{...styles} /> 
 					</div>
 					<div>Scroll up to zoom in; scroll down to zoom out.</div>
 				</div>

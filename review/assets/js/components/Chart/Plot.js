@@ -22,7 +22,6 @@ export default class Plot extends React.Component {
 
 	updateD3(props) {
 
-		console.log(props);
 		const { cnr_data, zoomEvent } = props;
 
 		this.xScale = d3.scaleLinear()

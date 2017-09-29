@@ -19,10 +19,12 @@ export default class Controls extends React.Component {
     }
 
     sendUpdateToReview() {
-    	this.props.updateDataFilter(
-	    	{
-	    		chromosome: this.state.chromosome	
-	    	}
+    	const chromosome = this.state.chromosome;
+    	let chromosomeFilter;
+    	if (chromosome !== '*') {
+	    	chromosomeFilter = (d) => d.chromosome === chromosome;
+	    }
+    	this.props.updateDataFilter(chromosomeFilter, { chromosome: chromosome }
     	);
     }
 
