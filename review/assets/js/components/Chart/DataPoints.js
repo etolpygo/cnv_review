@@ -1,7 +1,7 @@
 import React from 'react';
 
 const renderLines = (props) => {
-	return (coords, index) => {
+	return (coords) => {
 		const rgbaVal = "rgba(0, 0, 0, " + coords.weight + ")"
 		const lineProps = {
 			x1: props.xScale(coords.absoluteStart),
@@ -11,7 +11,7 @@ const renderLines = (props) => {
 			strokeWidth: 2,
 			stroke: rgbaVal,
 			fill: rgbaVal,
-			key: index,
+			key: coords.absoluteStart,
 			clipPath: props.clipPath
 		};
 		return <line {...lineProps} />;
