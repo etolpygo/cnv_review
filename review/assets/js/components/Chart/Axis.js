@@ -12,11 +12,20 @@ export default class Axis extends React.Component {
   }
 
   renderAxis() {
-    const axisType = `axis${this.props.orient}`
-    const axis = d3Axis[axisType]()
-      .scale(this.props.scale)
-      .ticks(this.props.numTicks)
-    d3Select(this.axisElement).call(axis)
+
+    const axisType = `axis${this.props.orient}`;
+    let axis = d3Axis[axisType]()
+        .scale(this.props.scale);
+    let axisTicks;
+
+    if (this.props.xticks) {
+      axisTicks = axis.tickValues(this.props.xticks.tickValues).tickFormat((d, i) => this.props.xticks.tickFormat[i]);
+    }
+    else if (this.props.numTicks) {
+      axisTicks = axis.ticks(this.props.numTicks);
+    }
+
+    d3Select(this.axisElement).call(axisTicks)
   }
 
   render() {

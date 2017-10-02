@@ -1,6 +1,5 @@
 import React  from 'react';
 import Axis   from './Axis';
-import XAxis   from './XAxis';
 
 export default (props) => {
 
@@ -30,8 +29,8 @@ export default (props) => {
   };
 
   return <g className="xy-axis">
-    <XAxis {...xBottomSettings} />
-    <XAxis {...xTopSettings} />
+    <Axis {...xBottomSettings} />
+    <Axis {...xTopSettings} />
     <Axis {...yLeftSettings}/>
     <Axis {...yRightSettings}/>
   </g>
