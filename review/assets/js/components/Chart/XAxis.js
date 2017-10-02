@@ -10,8 +10,8 @@ export default class XAxis extends Axis {
 		const axisType = `axis${this.props.orient}`
 		const axis = d3Axis[axisType]()
 			.scale(this.props.scale)
-			.tickValues(this.props.tickValues)
-			.tickFormat((d, i) => this.props.tickFormat[i])
+			.tickValues(this.props.xticks.tickValues)
+			.tickFormat((d, i) => this.props.xticks.tickFormat[i])
 		d3Select(this.axisElement).call(axis)
 	}
 

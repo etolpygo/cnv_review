@@ -7,12 +7,14 @@ export default (props) => {
   const xTopSettings = {
     translate: `translate(0, ${props.padding})`,
     scale: props.xScale,
-    orient: 'Top'
+    orient: 'Top',
+    xticks: props.xticks
   };
   const xBottomSettings = {
     translate: `translate(0, ${props.height - props.padding})`,
     scale: props.xScale,
-    orient: 'Bottom'
+    orient: 'Bottom',
+    xticks: props.xticks
   };
   const yLeftSettings = {
     translate: `translate(${props.padding}, 0)`,
@@ -27,11 +29,9 @@ export default (props) => {
     orient: 'Right'
   };
 
-  const xtickSettings = props.xticks;
-
   return <g className="xy-axis">
-    <XAxis {...xBottomSettings} {...xtickSettings} />
-    <XAxis {...xTopSettings} {...xtickSettings} />
+    <XAxis {...xBottomSettings} />
+    <XAxis {...xTopSettings} />
     <Axis {...yLeftSettings}/>
     <Axis {...yRightSettings}/>
   </g>
