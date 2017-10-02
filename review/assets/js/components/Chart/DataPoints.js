@@ -2,7 +2,7 @@ import React from 'react';
 
 const renderLines = (props) => {
 	return (coords) => {
-		const rgbaVal = "rgba(0, 0, 0, " + coords.weight + ")"
+		const rgbaVal = "rgba(0, 0, 0, " + coords.weight + ")";
 		const lineProps = {
 			x1: props.xScale(coords.absoluteStart),
 			y1: props.yScale(coords.log2),
