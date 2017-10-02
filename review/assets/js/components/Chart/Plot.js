@@ -6,9 +6,6 @@ import XYAxes       from './XYaxes';
 const xMax   = (data)  => d3.max(data, (d) => Number(d.absoluteEnd));
 const xMin   = (data)  => d3.min(data, (d) => Number(d.absoluteStart));
 
-const yMax   = (data)  => d3.max(data, (d) => Number(d.log2));
-const yMin   = (data)  => d3.min(data, (d) => Number(d.log2));
-
 
 export default class Plot extends React.Component {
 	constructor(props) {
