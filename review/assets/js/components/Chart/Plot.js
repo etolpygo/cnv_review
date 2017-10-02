@@ -40,19 +40,19 @@ export default class Plot extends React.Component {
 			<svg width={this.props.width} height={this.props.height} ref="plot">
 				<defs>
 					<clipPath id="chartClip">
-					<rect x={this.props.padding}
-						  y={this.props.padding}
-						  width={(this.props.width - this.props.padding * 2)} 
-						  height={(this.props.height - this.props.padding * 2)} 
-					/>
-				</clipPath>
+						<rect x={this.props.padding}
+							  y={this.props.padding}
+							  width={(this.props.width - this.props.padding * 2)} 
+							  height={(this.props.height - this.props.padding * 2)} 
+						/>
+					</clipPath>
 				</defs>
-			<DataPoints {...this.props} {...scales} clipPath="url(#chartClip)" />
-			<XYAxes padding={this.props.padding} 
-					height={this.props.height}
-					width={this.props.width}
-					xticks={this.props.xticks}
-					{...scales} />
+				<DataPoints {...this.props} {...scales} clipPath="url(#chartClip)" />
+				<XYAxes padding={this.props.padding} 
+						height={this.props.height}
+						width={this.props.width}
+						xticks={this.props.xticks}
+						{...scales} />
 			
 			</svg>
 		)
