@@ -48,7 +48,11 @@ export default class Plot extends React.Component {
 				</clipPath>
 				</defs>
 			<DataPoints {...this.props} {...scales} clipPath="url(#chartClip)" />
-			<XYAxes {...this.props} {...scales} />
+			<XYAxes padding={this.props.padding} 
+					height={this.props.height}
+					width={this.props.width}
+					xticks={this.props.xticks}
+					{...scales} />
 			
 			</svg>
 		)
