@@ -1,5 +1,6 @@
 import React from 'react';
 import * as d3      from "d3";
+import _ from 'lodash';
 import 'bootstrap/dist/css/bootstrap.css';
 
 import { loadData } from './DataHandling';
@@ -23,8 +24,8 @@ export default class Review extends React.Component {
 			},
 			chromosomeFilter: () => true,
 			goToLoc: {
-				chromosome: '*',
-				chromosomeLoc: '*'
+				chromosome: '',
+				chromosomeLoc: ''
 		    }
 		}
 		this.zoom = d3.zoom()
@@ -76,11 +77,30 @@ export default class Review extends React.Component {
 		d3.select(this.refs.svg).call(this.zoom.transform, d3.zoomIdentity);
 	}
 
-	updateDataFilter(chromosomeFilter, goToLoc) {
+	updateDataFilter(chromosome) {
 		this.resetZoom();
+
+		let chromosomeFilter, chartMin, chartMax;
+
+		let xticks = this.state.xticks
+
+    	if (chromosome !== '') {
+	    	chromosomeFilter = (d) => d.chromosome === chromosome;
+	    	let ind = parseInt(_.invert(xticks.tickFormat)[chromosome]);
+	    	chartMin = xticks.tickValues[ind];
+	    	chartMax = xticks.tickValues[ind + 1] ? xticks.tickValues[ind + 1] : xticks.tickValues[xticks.tickValues.length - 1];
+	    }
+	    else {
+	    	chromosomeFilter = () => true;
+	    	chartMin = xticks.tickValues[0];
+	    	chartMax = xticks.tickValues[xticks.tickValues.length - 1];
+	    }
+
 	    this.setState({
-	      	goToLoc: goToLoc,
-	      	chromosomeFilter: chromosomeFilter
+	      	goToLoc: { chromosome: chromosome },
+	      	chromosomeFilter: chromosomeFilter,
+	      	chartMin: chartMin,
+	      	chartMax: chartMax
 	    });
 	}
 
@@ -97,6 +117,8 @@ export default class Review extends React.Component {
 						<Plot 	cnr_data={filteredCNR} 
 								zoomEvent={this.state.zoomEvent}
 								xticks={this.state.xticks}
+								chartMin={this.state.chartMin}
+								chartMax={this.state.chartMax}
 							{...styles} /> 
 					</div>
 					<div>Scroll up to zoom in; scroll down to zoom out.</div>

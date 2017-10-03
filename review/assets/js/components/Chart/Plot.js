@@ -3,26 +3,23 @@ import * as d3      from "d3";
 import DataPoints   from './DataPoints';
 import XYAxes       from './XYaxes';
 
-const xMax   = (data)  => d3.max(data, (d) => Number(d.absoluteEnd));
-const xMin   = (data)  => d3.min(data, (d) => Number(d.absoluteStart));
-
 
 export default class Plot extends React.Component {
 	constructor(props) {
-	  super(props);
-	  this.updateD3(props);
+		super(props);
+		this.updateD3(props);
 	}
 
 	componentWillUpdate(nextProps) {
-	  this.updateD3(nextProps);
+		this.updateD3(nextProps);
 	}
 
 	updateD3(props) {
 
-		const { cnr_data, zoomEvent } = props;
+		const { zoomEvent, chartMin, chartMax } = props;
 
 		this.xScale = d3.scaleLinear()
-			.domain([xMin(cnr_data), xMax(cnr_data)])
+			.domain([chartMin, chartMax])
 			.range([props.padding, (props.width - props.padding)]);
 
 		this.yScale = d3.scaleLinear()
@@ -47,7 +44,9 @@ export default class Plot extends React.Component {
 						/>
 					</clipPath>
 				</defs>
-				<DataPoints {...this.props} {...scales} clipPath="url(#chartClip)" />
+				<DataPoints cnr_data={this.props.cnr_data} 
+							clipPath="url(#chartClip)"
+							{...scales}  />
 				<XYAxes padding={this.props.padding} 
 						height={this.props.height}
 						width={this.props.width}

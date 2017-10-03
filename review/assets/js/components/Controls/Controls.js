@@ -34,14 +34,7 @@ export default class Controls extends React.Component {
 
     sendUpdateToReview() {
     	const chromosome = this.state.chromosome;
-    	let chromosomeFilter;
-    	if (chromosome !== '') {
-	    	chromosomeFilter = (d) => d.chromosome === chromosome;
-	    }
-	    else {
-	    	chromosomeFilter = () => true;
-	    }
-    	this.props.updateDataFilter(chromosomeFilter, { chromosome: chromosome });
+    	this.props.updateDataFilter(chromosome);
     }
 
     validateChromosome(chromosome) {

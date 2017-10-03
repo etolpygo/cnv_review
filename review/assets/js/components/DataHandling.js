@@ -17,7 +17,9 @@ export const loadData = (cnr_url, callback = _.noop) => {
           callback({
               cnr_data: cnr_data,
               xticks: xTicks,
-              allowedChromosomeValues: allowedChrValues
+              allowedChromosomeValues: allowedChrValues,
+              chartMin: xTicks.tickValues[0],
+              chartMax: xTicks.tickValues[xTicks.tickValues.length - 1]
           });
       });
 };

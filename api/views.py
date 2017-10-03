@@ -63,7 +63,7 @@ def chromosome_lengths(request):
     chromosomes = tuple(sorted(ends_absolute, key=lambda x: (ends_absolute[x]['order'])))
     ends = [ends_absolute[key]['absolute_end'] for key in ends_absolute.keys()]
     ends.insert(0, 0)
-    starts = tuple(sorted(ends)[:-1])
+    starts = tuple(sorted(ends))
 
     obj = {'chromosomes': chromosomes, 'starts': starts}
     return JsonResponse(obj, safe=False)
