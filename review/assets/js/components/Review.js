@@ -22,7 +22,7 @@ export default class Review extends React.Component {
 				transform: null
 			},
 			chromosomeFilter: () => true,
-			filteredBy: {
+			goToLoc: {
 				chromosome: '*',
 				chromosomeLoc: '*'
 		    }
@@ -36,12 +36,11 @@ export default class Review extends React.Component {
 					  .on("zoom", this.zoomed.bind(this));
 
 		this.updateDataFilter = this.updateDataFilter.bind(this)
-   }
+    }
 
 	componentWillMount() {
 		loadData(this.props.cnr_url, data => this.setState(data));
 	}
-
 
     componentDidMount() {
 		d3.select(this.refs.svg)
@@ -54,12 +53,12 @@ export default class Review extends React.Component {
 	}
 
 	shouldComponentUpdate(nextProps, nextState) {
-	    const { cnr_data, filteredBy, zoomEvent } = this.state;
+	    const { cnr_data, goToLoc, zoomEvent } = this.state;
 
 	    const changedData = (cnr_data && cnr_data.length) !== (nextState.cnr_data && nextState.cnr_data.length);
-	    const changedFilters = Object.keys(filteredBy)
+	    const changedFilters = Object.keys(goToLoc)
 	                                 .some(
-	                                    k => filteredBy[k] !== nextState.filteredBy[k]
+	                                    k => goToLoc[k] !== nextState.goToLoc[k]
 	                                 );
 	    const changedZoom = zoomEvent.transform !== nextState.zoomEvent.transform
 
@@ -73,9 +72,14 @@ export default class Review extends React.Component {
 		});
 	}
 
-	updateDataFilter(chromosomeFilter, filteredBy) {
+	resetZoom() {
+		d3.select(this.refs.svg).call(this.zoom.transform, d3.zoomIdentity);
+	}
+
+	updateDataFilter(chromosomeFilter, goToLoc) {
+		this.resetZoom();
 	    this.setState({
-	      	filteredBy: filteredBy,
+	      	goToLoc: goToLoc,
 	      	chromosomeFilter: chromosomeFilter
 	    });
 	}
@@ -99,7 +103,7 @@ export default class Review extends React.Component {
 				</div>
 			);
 			controlsArea = (
-				<Controls updateDataFilter={this.updateDataFilter} 
+				<Controls updateDataFilter={this.updateDataFilter}
 						  allowedChromosomeValues={this.state.allowedChromosomeValues}
 				/>
 			);
