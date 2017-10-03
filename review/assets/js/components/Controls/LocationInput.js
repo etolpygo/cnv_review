@@ -4,16 +4,31 @@ export default class LocationInput extends React.Component {
 
 	constructor(props) {
 	    super(props);
-	    this.state = { vizLocation: '' };
+	    this.state = { 
+	    	vizLocation: '', 
+	    	placeholder: 'chr1'
+		};
+	    this.handleFocus = this.handleFocus.bind(this);
+	    this.handleBlur = this.handleBlur.bind(this);
 	    this.handleChange = this.handleChange.bind(this);
 	    this.handleKeyPress = this.handleKeyPress.bind(this);
 	}
 
 
 	shouldComponentUpdate(nextProps, nextState) {
-	    const { vizLocation } = this.state;
+	    const { vizLocation, placeholder } = this.state;
 	    const changedLocation = vizLocation !== nextState.vizLocation;
-	    return changedLocation;
+	    const changedPlaceholder = placeholder !== nextState.placeholder;
+	    return changedLocation || changedPlaceholder;
+	}
+
+
+	handleFocus(e) {
+		this.setState({ placeholder: '' });
+	}
+
+	handleBlur(e) {
+		this.setState({ placeholder: 'chr1' });
 	}
 
 
@@ -34,7 +49,9 @@ export default class LocationInput extends React.Component {
 				   onChange={this.handleChange} 
 				   onKeyPress={this.handleKeyPress}
 				   className="col-xs-10" 
-				   placeholder="chr1" 
+				   placeholder={this.state.placeholder}
+				   onFocus={this.handleFocus} 
+				   onBlur={this.handleBlur} 
 				/>
 		);
 	}
