@@ -5,10 +5,17 @@ export default class LocationInput extends React.Component {
 	constructor(props) {
 	    super(props);
 	    this.state = { vizLocation: '' };
-
 	    this.handleChange = this.handleChange.bind(this);
 	    this.handleKeyPress = this.handleKeyPress.bind(this);
 	}
+
+
+	shouldComponentUpdate(nextProps, nextState) {
+	    const { vizLocation } = this.state;
+	    const changedLocation = vizLocation !== nextState.vizLocation;
+	    return changedLocation;
+	}
+
 
 	handleChange(e) {
 	    this.setState({ vizLocation: e.target.value });

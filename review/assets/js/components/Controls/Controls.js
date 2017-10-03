@@ -16,6 +16,16 @@ export default class Controls extends React.Component {
 		this.updateLocationFilter = this.updateLocationFilter.bind(this)
 	}
 
+	shouldComponentUpdate(nextProps, nextState) {
+	    const { chromosome, chromosomeLoc, isValidInput  } = this.state;
+
+	    const changedChromosome = chromosome !== nextState.chromosome;
+	    const changedChromosomeLoc = chromosomeLoc !== nextState.chromosomeLoc;
+	    const changedIsValidInput = isValidInput !== nextState.isValidInput;
+
+	    return changedChromosome || changedChromosomeLoc || changedIsValidInput;
+	}
+
 	componentDidUpdate() {
 		if (this.state.isValidInput) {
 	        this.sendUpdateToReview();
