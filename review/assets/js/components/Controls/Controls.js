@@ -9,6 +9,7 @@ export default class Controls extends React.Component {
 	constructor(props) {
 	  	super(props);
 	  	this.state = {
+	  		input: '',
 			chromosome: '',
 			chromosomeLoc: '',
 			isValidInput: true,
@@ -17,13 +18,12 @@ export default class Controls extends React.Component {
 	}
 
 	shouldComponentUpdate(nextProps, nextState) {
-	    const { chromosome, chromosomeLoc, isValidInput  } = this.state;
+	    const { input, isValidInput  } = this.state;
 
-	    const changedChromosome = chromosome !== nextState.chromosome;
-	    const changedChromosomeLoc = chromosomeLoc !== nextState.chromosomeLoc;
+	    const changedInput = input !== nextState.input;
 	    const changedIsValidInput = isValidInput !== nextState.isValidInput;
 
-	    return changedChromosome || changedChromosomeLoc || changedIsValidInput;
+	    return changedInput || changedIsValidInput;
 	}
 
 	componentDidUpdate() {
@@ -33,8 +33,8 @@ export default class Controls extends React.Component {
     }
 
     sendUpdateToReview() {
-    	const chromosome = this.state.chromosome;
-    	this.props.updateDataFilter(chromosome);
+    	const { chromosome, chromosomeLoc  } = this.state;
+    	this.props.updateDataFilter(chromosome, chromosomeLoc);
     }
 
     validateChromosome(chromosome) {
@@ -42,10 +42,46 @@ export default class Controls extends React.Component {
     	return ((chromosome === '') || (allowedChromosomeValues.indexOf(chromosome) >= 0));
     }
 
-    updateLocationFilter(chromosome) {
+    validateChromosomeLoc(chromosome, chromosomeLoc) {
+    	// valid if empty
+    	if (chromosomeLoc === '') { return true; }
+
+    	let chromosomeLookup = this.props.chromosomeLookup;
+    	let ind = parseInt(_.invert(chromosomeLookup.names)[chromosome]);
+    	let length = chromosomeLookup.lengths[ind];
+
+    	// split by '-'
+    	var res = chromosomeLoc.split("-");
+    	// have two inputs
+    	if (res.length !== 2) { console.log('not two elements'); return false; }
+
+    	let start = parseInt(res[0]);
+    	let end = parseInt(res[1]);
+
+		// both inputs are numeric
+    	if (!Number.isInteger(start) || (!Number.isInteger(end))) {
+    		console.log('numbers not integers');
+			return false;
+		} 
+
+		// second input larger than first
+		if ((end <= start) || (start < 0)) { console.log('end is less than start or start is less than zero'); return false; }
+
+    	// both inputs lower than given chromosome length
+    	if (end > length) { console.log('end is more than length'); return false; }
+
+    	return true;
+    }
+
+    updateLocationFilter(input) {
+    	var res = input.split(":");
+    	var chromosome = res[0];
+    	var chromosomeLoc = res[1] ? res[1].replace(/,/g , '') : '';
         this.setState({
+        	input: input,
         	chromosome: chromosome,
-        	isValidInput: this.validateChromosome(chromosome)
+        	chromosomeLoc: chromosomeLoc,
+        	isValidInput: (this.validateChromosome(chromosome) && this.validateChromosomeLoc(chromosome, chromosomeLoc))
         });
     }
 
@@ -56,7 +92,7 @@ export default class Controls extends React.Component {
 				<LocationInput updateLocationFilter={this.updateLocationFilter} />
 				<br />
 				<ErrorDisplay isValidInput={this.state.isValidInput}
-							  enteredValue={this.state.chromosome}
+							  enteredValue={this.state.input}
 				/>
 			</div>
 		);

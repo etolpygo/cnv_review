@@ -48,7 +48,7 @@ export default class LocationInput extends React.Component {
 				   value={this.state.vizLocation} 
 				   onChange={this.handleChange} 
 				   onKeyPress={this.handleKeyPress}
-				   className="col-xs-10" 
+				   className="col-sm-12" 
 				   placeholder={this.state.placeholder}
 				   onFocus={this.handleFocus} 
 				   onBlur={this.handleBlur} 

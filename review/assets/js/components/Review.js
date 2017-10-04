@@ -29,8 +29,8 @@ export default class Review extends React.Component {
 		    }
 		}
 		this.zoom = d3.zoom()
-					  // only zoom in, e.g. between 1x and 5000x
-					  .scaleExtent([1, 5000])
+					  // only zoom in, e.g. between 1x and 70000000x
+					  .scaleExtent([1, 70000000])
 					  // restrict panning to edges of the graph
 					  .translateExtent([[styles.padding, styles.padding], [(styles.width-styles.padding), (styles.height - styles.padding * 2)]])
 	    			  .extent([[styles.padding, styles.padding], [(styles.width-styles.padding), (styles.height - styles.padding * 2)]])
@@ -77,7 +77,7 @@ export default class Review extends React.Component {
 		d3.select(this.refs.svg).call(this.zoom.transform, d3.zoomIdentity);
 	}
 
-	updateDataFilter(chromosome) {
+	updateDataFilter(chromosome, chromosomeLoc) {
 		this.resetZoom();
 
 		let chromosomeFilter, chartMin, chartMax;
@@ -87,8 +87,23 @@ export default class Review extends React.Component {
     	if (chromosome !== '') {
 	    	chromosomeFilter = (d) => d.chromosome === chromosome;
 	    	let ind = parseInt(_.invert(chromosomeLookup.names)[chromosome]);
-	    	chartMin = chromosomeLookup.starts[ind];
-	    	chartMax = chromosomeLookup.starts[ind + 1] ? chromosomeLookup.starts[ind + 1] : chromosomeLookup.starts[chromosomeLookup.starts.length - 1];
+	    	if (chromosomeLoc !== '') {
+	    		// validated by Controls
+	    		let cLoc = chromosomeLoc.split("-");
+	    		let chromosomeLocStart = parseInt(cLoc[0]);
+	    		let chromosomeLocEnd = parseInt(cLoc[1]);
+	    		chartMin = chromosomeLookup.starts[ind] + chromosomeLocStart - 40; // some padding
+	    		chartMax = chromosomeLookup.starts[ind] + chromosomeLocEnd + 40; // some padding
+
+	    		console.log('chromosome ' + chromosome + ' starts at ' + chromosomeLookup.starts[ind]);
+	    		console.log('chromosome ' + chromosome + ' ends at ' + chromosomeLookup.starts[ind + 1]);
+	    		console.log('start is ' + chromosomeLocStart);
+	    		console.log('end is ' + chromosomeLocEnd);
+	    	}
+	    	else {
+		    	chartMin = chromosomeLookup.starts[ind];
+		    	chartMax = chromosomeLookup.starts[ind + 1] ? chromosomeLookup.starts[ind + 1] : chromosomeLookup.starts[chromosomeLookup.starts.length - 1];
+		    }
 	    }
 	    else {
 	    	chromosomeFilter = () => true;
@@ -97,7 +112,10 @@ export default class Review extends React.Component {
 	    }
 
 	    this.setState({
-	      	goToLoc: { chromosome: chromosome },
+	      	goToLoc: { 
+	      		chromosome: chromosome, 
+	      		chromosomeLoc: chromosomeLoc
+	      	},
 	      	chromosomeFilter: chromosomeFilter,
 	      	chartMin: chartMin,
 	      	chartMax: chartMax

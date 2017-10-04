@@ -33,7 +33,7 @@ html, body {
 	position: fixed;
 	top: 75px;
 	left: 0;
-	width: 130px;
+	width: 210px;
 	background-color: #cccccc;
 	border-right: 1px solid #999999;
 	height: calc(100% - 75px);
@@ -41,7 +41,7 @@ html, body {
 }
 
 .graphContainer {
-	margin-left: 130px;
+	margin-left: 210px;
 	margin-top: 10px;
 	height: calc(100% - 75px);
 	float: left;
