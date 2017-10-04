@@ -52,6 +52,10 @@ html, body {
 /* chart styles */
 
 .Axis {
+	shape-rendering: geometricPrecision;
+}
+
+line.zero-axis {
 	shape-rendering: crispEdges;
 }
 
