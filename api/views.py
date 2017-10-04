@@ -48,14 +48,14 @@ def chromosome_lengths(request):
         for row in reader:
             title = utilities.format_chromosome(row[0])
             lengths[title] = int(row[1])
-            ends_absolute[row[0]] = { 'end': int(row[1]) }
+            ends_absolute[row[0]] = { 'length': int(row[1]) }
 
     counter = 0
     for key in sorted(lengths.keys()):
         wanted_lengths = {k: v for k, v in lengths.items() if k < key}
         add_length = sum(wanted_lengths.values())
         unkey = utilities.unformat_chromosome(key)
-        ends_absolute[unkey]['absolute_end'] = add_length + ends_absolute[unkey]['end']
+        ends_absolute[unkey]['absolute_end'] = add_length + ends_absolute[unkey]['length']
         ends_absolute[unkey]['order'] = counter
         counter = counter + 1
 
@@ -63,7 +63,8 @@ def chromosome_lengths(request):
     ends = [ends_absolute[key]['absolute_end'] for key in ends_absolute.keys()]
     ends.insert(0, 0)
     starts = tuple(sorted(ends))
+    chr_lengths = tuple([ends_absolute[x]['length'] for x in chromosomes])
 
-    obj = {'chromosomes': chromosomes, 'starts': starts}
+    obj = {'chromosomes': chromosomes, 'starts': starts, 'lengths': chr_lengths }
     return JsonResponse(obj, safe=False)
 
