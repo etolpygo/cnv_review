@@ -55,7 +55,7 @@ export default class Plot extends React.Component {
 				<XYAxes padding={this.props.padding} 
 						height={this.props.height}
 						width={this.props.width}
-						xticks={this.props.xticks}
+						chromosomeLookup={this.props.chromosomeLookup}
 						{...scales} />
 			
 			</svg>

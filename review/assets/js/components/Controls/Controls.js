@@ -38,7 +38,7 @@ export default class Controls extends React.Component {
     }
 
     validateChromosome(chromosome) {
-    	let allowedChromosomeValues = this.props.allowedChromosomeValues;
+    	let allowedChromosomeValues = this.props.chromosomeLookup.names;
     	return ((chromosome === '') || (allowedChromosomeValues.indexOf(chromosome) >= 0));
     }
 
@@ -66,5 +66,5 @@ export default class Controls extends React.Component {
 
 Controls.propTypes = {
   updateDataFilter: PropTypes.func.isRequired,
-  allowedChromosomeValues: PropTypes.array.isRequired
+  chromosomeLookup: PropTypes.object.isRequired
 };

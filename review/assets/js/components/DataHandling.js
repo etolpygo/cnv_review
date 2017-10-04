@@ -7,19 +7,16 @@ export const loadData = (cnr_url, callback = _.noop) => {
       .defer(d3.json, '/api/chromosome_lengths')
       .await((error, cnr_data, chromosome_lengths) => {
 
-          let xTicks = {
-            tickValues: chromosome_lengths.starts,
-            tickFormat: chromosome_lengths.chromosomes
+          let chromosomes = {
+            starts: chromosome_lengths.starts,
+            names: chromosome_lengths.chromosomes
           };
-
-          let allowedChrValues = _.uniq(_.map(cnr_data, 'chromosome'));
 
           callback({
               cnr_data: cnr_data,
-              xticks: xTicks,
-              allowedChromosomeValues: allowedChrValues,
-              chartMin: xTicks.tickValues[0],
-              chartMax: xTicks.tickValues[xTicks.tickValues.length - 1]
+              chromosomeLookup: chromosomes,
+              chartMin: chromosomes.starts[0],
+              chartMax: chromosomes.starts[chromosomes.starts.length - 1]
           });
       });
 };

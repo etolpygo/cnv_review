@@ -7,13 +7,13 @@ export default (props) => {
     translate: `translate(0, ${props.padding})`,
     scale: props.xScale,
     orient: 'Top',
-    xticks: props.xticks
+    chromosomeLookup: props.chromosomeLookup
   };
   const xBottomSettings = {
     translate: `translate(0, ${props.height - props.padding})`,
     scale: props.xScale,
     orient: 'Bottom',
-    xticks: props.xticks
+    chromosomeLookup: props.chromosomeLookup
   };
   const yLeftSettings = {
     translate: `translate(${props.padding}, 0)`,

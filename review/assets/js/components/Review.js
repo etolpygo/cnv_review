@@ -82,18 +82,18 @@ export default class Review extends React.Component {
 
 		let chromosomeFilter, chartMin, chartMax;
 
-		let xticks = this.state.xticks
+		let chromosomeLookup = this.state.chromosomeLookup
 
     	if (chromosome !== '') {
 	    	chromosomeFilter = (d) => d.chromosome === chromosome;
-	    	let ind = parseInt(_.invert(xticks.tickFormat)[chromosome]);
-	    	chartMin = xticks.tickValues[ind];
-	    	chartMax = xticks.tickValues[ind + 1] ? xticks.tickValues[ind + 1] : xticks.tickValues[xticks.tickValues.length - 1];
+	    	let ind = parseInt(_.invert(chromosomeLookup.names)[chromosome]);
+	    	chartMin = chromosomeLookup.starts[ind];
+	    	chartMax = chromosomeLookup.starts[ind + 1] ? chromosomeLookup.starts[ind + 1] : chromosomeLookup.starts[chromosomeLookup.starts.length - 1];
 	    }
 	    else {
 	    	chromosomeFilter = () => true;
-	    	chartMin = xticks.tickValues[0];
-	    	chartMax = xticks.tickValues[xticks.tickValues.length - 1];
+	    	chartMin = chromosomeLookup.starts[0];
+	    	chartMax = chromosomeLookup.starts[chromosomeLookup.starts.length - 1];
 	    }
 
 	    this.setState({
@@ -108,7 +108,7 @@ export default class Review extends React.Component {
 		let chartArea;
 		let controlsArea;
 
-		if (this.state.cnr_data && this.state.xticks) {
+		if (this.state.cnr_data && this.state.chromosomeLookup) {
 			const filteredCNR = this.state.cnr_data.filter(this.state.chromosomeFilter)
 
 			chartArea = (
@@ -116,7 +116,7 @@ export default class Review extends React.Component {
 					<div ref="svg">
 						<Plot 	cnr_data={filteredCNR} 
 								zoomEvent={this.state.zoomEvent}
-								xticks={this.state.xticks}
+								chromosomeLookup={this.state.chromosomeLookup}
 								chartMin={this.state.chartMin}
 								chartMax={this.state.chartMax}
 							{...styles} /> 
@@ -126,7 +126,7 @@ export default class Review extends React.Component {
 			);
 			controlsArea = (
 				<Controls updateDataFilter={this.updateDataFilter}
-						  allowedChromosomeValues={this.state.allowedChromosomeValues}
+						  chromosomeLookup={this.state.chromosomeLookup}
 				/>
 			);
 		}
