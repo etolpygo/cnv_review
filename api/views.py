@@ -44,8 +44,6 @@ def cnr(request, SR, CGP):
                     
                 dct.update({'absoluteStart': absoluteStart, 'absoluteEnd': absoluteEnd})
                 csv_rows.extend([dct])
-
-        data = json.dumps(csv_rows)
         return JsonResponse(csv_rows, safe=False)
 
 
@@ -80,8 +78,6 @@ def load_cnx_coords(request, SR, CGP):
         # Transpose so JSON representation is row-wise
         response_obj.extend((dict(row._asdict())
                              for row in table.itertuples(index=False)))
-
-    data = json.dumps(response_obj)  # XXX for logging?
     return JsonResponse(response_obj, safe=False)
 
 
