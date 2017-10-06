@@ -59,8 +59,8 @@ def cnx(request, SR, CGP):
                 "gene": item.gene }
 
         if is_segment:
-            obj["x_position"] = item.start
-            obj["x_end"] = item.end
+            obj["x_position"] = np.int(item.start)
+            obj["x_end"] = np.int(item.end)
             obj["probes"] = item.probes
         else:
             obj["x_position"] = np.int((item.start + item.end) // 2)
