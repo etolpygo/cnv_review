@@ -18,7 +18,7 @@ def load_chromosome_sizes(fname=DIR_NAME + '/static/hg19.chrom.sizes.txt'):
 
 
 def calculateAbsolute(chromosome, start, end):
-    lengths_ref = os.path.dirname(os.path.abspath(__file__)) + '/static/hg19.chrom.sizes.txt'
+    lengths_ref = DIR_NAME + '/static/hg19.chrom.sizes.txt'
     lengths = {}
 
     chromosome = format_chromosome(chromosome)

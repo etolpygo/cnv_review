@@ -67,10 +67,13 @@ def load_cnx_coords(request, SR, CGP):
         table = subcna.data.loc[:, ("chromosome", "log2", "weight", "gene")]
         if is_segment:
             table["x_position"] = subcna.start
+            table["chrom_x_position"] = subcna.start
             table["x_end"] = subcna.end
+            table["chrom_x_end"] = subcna.end
             table["probes"] = subcna.probes
         else:
             table["x_position"] = (subcna.start + subcna.end) / 2
+            table["chrom_x_position"] = (subcna.start + subcna.end) / 2
         # Adjust bin x-axis positions for the chromosome's absolute x-position
         x_offset += pad
         table["x_position"] += x_offset
