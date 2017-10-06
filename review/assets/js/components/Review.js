@@ -86,7 +86,7 @@ export default class Review extends React.Component {
 
     	if (chromosome !== '') {
 	    	chromosomeFilter = (d) => d.chromosome === chromosome;
-	    	let ind = parseInt(_.invert(chromosomeLookup.names)[chromosome]);
+	    	let ind = parseInt(_.invert(chromosomeLookup.labels)[chromosome]);
 	    	if (chromosomeLoc !== '') {
 	    		// validated by Controls
 	    		let cLoc = chromosomeLoc.split("-");

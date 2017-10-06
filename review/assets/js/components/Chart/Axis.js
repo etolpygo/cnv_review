@@ -19,7 +19,7 @@ export default class Axis extends React.Component {
     let axisTicks;
 
     if (this.props.chromosomeLookup) {
-      axisTicks = axis.tickValues(this.props.chromosomeLookup.starts).tickFormat((d, i) => this.props.chromosomeLookup.names[i]);
+      axisTicks = axis.tickValues(this.props.chromosomeLookup.starts).tickFormat((d, i) => this.props.chromosomeLookup.labels[i]);
     }
     else if (this.props.numTicks) {
       axisTicks = axis.ticks(this.props.numTicks);

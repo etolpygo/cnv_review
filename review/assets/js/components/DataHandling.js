@@ -8,7 +8,7 @@ export const loadData = (cnr_url, callback = _.noop) => {
       .await((error, cnr_data, chromosome_lengths) => {
 
           let chromosomes = {
-            names: chromosome_lengths.chromosomes,
+            labels: chromosome_lengths.chromosomes,
             starts: chromosome_lengths.starts,
             lengths: chromosome_lengths.lengths
           };

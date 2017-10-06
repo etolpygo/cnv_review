@@ -38,7 +38,7 @@ export default class Controls extends React.Component {
     }
 
     validateChromosome(chromosome) {
-    	let allowedChromosomeValues = this.props.chromosomeLookup.names;
+    	let allowedChromosomeValues = this.props.chromosomeLookup.labels;
     	return ((chromosome === '') || (allowedChromosomeValues.indexOf(chromosome) >= 0));
     }
 
@@ -47,7 +47,7 @@ export default class Controls extends React.Component {
     	if (chromosomeLoc === '') { return true; }
 
     	let chromosomeLookup = this.props.chromosomeLookup;
-    	let ind = parseInt(_.invert(chromosomeLookup.names)[chromosome]);
+    	let ind = parseInt(_.invert(chromosomeLookup.labels)[chromosome]);
     	let length = chromosomeLookup.lengths[ind];
 
     	// split by '-'
@@ -72,6 +72,7 @@ export default class Controls extends React.Component {
 
     	return true;
     }
+
 
     updateLocationFilter(input) {
     	var res = input.split(":");
