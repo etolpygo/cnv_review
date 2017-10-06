@@ -1,3 +1,9 @@
+from __future__ import division, print_function
+import cnvlib
+from skgenome import tabio
+import numpy as np
+
+
 from api.models import Case
 from api.serializers import CaseSerializer
 from rest_framework import viewsets
@@ -6,6 +12,9 @@ import csv
 import json
 import os
 from . import utilities
+
+
+
 
 class CaseViewSet(viewsets.ReadOnlyModelViewSet):
     """
@@ -36,6 +45,28 @@ def cnr(request, SR, CGP):
 
         data = json.dumps(csv_rows)
         return JsonResponse(csv_rows, safe=False)
+
+def cnx(request, SR, CGP):
+    is_segment = False
+    fname = 'test/go_run_data/' + SR + '/Data/Intensities/BaseCalls/Alignment/' + CGP + '.cnr'
+    cnarr = tabio.read(fname, "tab")# .filter(chromosome=chromosome)
+
+    items = []
+    for item in cnarr:
+        obj = { "chromosome": item.chromosome,
+                "y_value": item.log2,
+                "weight": item.weight,
+                "gene": item.gene }
+
+        if is_segment:
+            obj["x_position"] = item.start
+            obj["x_end"] = item.end
+            obj["probes"] = item.probes
+        else:
+            obj["x_position"] = np.int((item.start + item.end) // 2)
+        items.append(obj)
+    data = json.dumps(items)
+    return JsonResponse(items, safe=False)
 
 
 def chromosome_lengths(request):

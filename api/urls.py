@@ -10,6 +10,7 @@ router.register(r'api', views.CaseViewSet)
 
 urlpatterns = [
     url(r'^cnr/(?P<SR>SR-[0-9]+)/(?P<CGP>CGP-[0-9]+)/$', views.cnr, name='cnr'),
+    url(r'^cnx/(?P<SR>SR-[0-9]+)/(?P<CGP>CGP-[0-9]+)/$', views.cnx, name='cnx'),
     url(r'^chromosome_lengths$', views.chromosome_lengths, name='chromosome_lengths')
 ]
 
