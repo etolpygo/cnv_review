@@ -3,7 +3,7 @@ import React from 'react';
 const renderCircles = (props) => {
 	return (coords) => {
 		const rgbaVal = "rgba(0, 0, 0, " + coords.weight + ")";
-		const absoluteCenter = ((coords.absoluteStart + coords.absoluteEnd) / 2);
+		const absoluteCenter = ((parseInt(coords.absoluteStart) + parseInt(coords.absoluteEnd)) / 2);
 
 		const circleProps = {
 			cx: props.xScale(absoluteCenter),

@@ -1,9 +1,9 @@
-import React        from 'react';
-import * as d3      from "d3";
-import DataPoints   from './DataPoints';
-import XYAxes       from './XYaxes';
-import ZeroAxis     from './ZeroAxis';
-
+import React        		from 'react';
+import * as d3      		from "d3";
+import CNRPoints   			from './CNRPoints';
+import XYAxes       		from './XYaxes';
+import ZeroAxis     		from './ZeroAxis';
+import ChromosomeLines    	from './ChromosomeLines';
 
 export default class Plot extends React.Component {
 	constructor(props) {
@@ -49,14 +49,17 @@ export default class Plot extends React.Component {
 						  chartMax={this.props.chartMax}
 						  clipPath="url(#chartClip)"
 						  {...scales}  />
-				<DataPoints cnr_data={this.props.cnr_data} 
-							clipPath="url(#chartClip)"
-							{...scales}  />
+				<CNRPoints cnr_data={this.props.cnr_data} 
+						   clipPath="url(#chartClip)"
+						   {...scales}  />
 				<XYAxes padding={this.props.padding} 
 						height={this.props.height}
 						width={this.props.width}
 						chromosomeLookup={this.props.chromosomeLookup}
 						{...scales} />
+				<ChromosomeLines starts={this.props.chromosomeLookup.starts}
+								 clipPath="url(#chartClip)"
+								 {...scales} />
 			
 			</svg>
 		)
