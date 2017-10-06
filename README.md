@@ -6,7 +6,10 @@
 * git clone git@bitbucket.org:ccgl/cnv_review.git
 * cd cnv_review
 
-### install and compile resources
+### install python resources
+* pip install -r requirements.txt
+
+### install and compile js resources
 * npm install --save-dev
 * ./node_modules/.bin/webpack --config review/webpack.config.js
 
