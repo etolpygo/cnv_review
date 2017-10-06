@@ -93,16 +93,20 @@ def chromosome_lengths(request):
               "chr16", "chr17", "chr18", "chr20", "chr19", "chr22", "chr21",
               "chrX", "chrY"]
 
-    response_obj = {"chromosomes": chroms, # The original names
-                    "starts": [],  # absolute x-axis position of chromosome start
-                    "lengths": [], # each chromosome's length + 2x padding
-                   }
+    response_obj = {
+        # Canonical chromosome names, in preferred order
+        "chromosomes": chroms,
+        # Absolute x-axis position of chromosome boundary line and x-axis ticks
+        "starts": [],
+        # Each chromosome's length + 2x padding, for other display calculations
+        "lengths": [],
+    }
 
     chrom_sizes = utilities.load_chromosome_sizes()
     pad = 0.003 * sum(chrom_sizes.values())
-    x_offset = 0
+    x_offset = -pad
     for chrom in chroms:
-        response_obj["starts"].append(x_offset)
+        response_obj["starts"].append(x_offset + pad)
         adj_length = 2 * pad + chrom_sizes[chrom]
         response_obj["lengths"].append(adj_length)
         x_offset += adj_length
