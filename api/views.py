@@ -74,6 +74,8 @@ def load_cnx_coords(request, SR, CGP):
         # Adjust bin x-axis positions for the chromosome's absolute x-position
         x_offset += pad
         table["x_position"] += x_offset
+        if is_segment:
+            table["x_end"] += x_offset
         x_offset += pad + chrom_sizes[chrom]
         # Transpose so JSON representation is row-wise
         response_obj.extend((dict(row._asdict())
@@ -82,32 +84,24 @@ def load_cnx_coords(request, SR, CGP):
 
 
 def chromosome_lengths(request):
-    lengths_ref = os.path.dirname(os.path.abspath(__file__)) + '/static/hg19.chrom.sizes.txt'
-    lengths = {}
-    ends_absolute = {}
+    chroms = ["chr1", "chr2", "chr3", "chr4", "chr5", "chr6", "chr7", "chr8",
+              "chr9", "chr10", "chr11", "chr12", "chr13", "chr14", "chr15",
+              "chr16", "chr17", "chr18", "chr20", "chr19", "chr22", "chr21",
+              "chrX", "chrY"]
 
-    with open(lengths_ref, mode='r') as data_file: 
-        reader = csv.reader(data_file, delimiter='\t')
-        for row in reader:
-            title = utilities.format_chromosome(row[0])
-            lengths[title] = int(row[1])
-            ends_absolute[row[0]] = { 'length': int(row[1]) }
+    response_obj = {"chromosomes": chroms, # The original names
+                    "starts": [],  # absolute x-axis position of chromosome start
+                    "lengths": [], # each chromosome's length + 2x padding
+                   }
 
-    counter = 0
-    for key in sorted(lengths.keys()):
-        wanted_lengths = {k: v for k, v in lengths.items() if k < key}
-        add_length = sum(wanted_lengths.values())
-        unkey = utilities.unformat_chromosome(key)
-        ends_absolute[unkey]['absolute_end'] = add_length + ends_absolute[unkey]['length']
-        ends_absolute[unkey]['order'] = counter
-        counter = counter + 1
+    chrom_sizes = utilities.load_chromosome_sizes()
+    pad = 0.003 * sum(chrom_sizes.values())
+    x_offset = 0
+    for chrom in chroms:
+        response_obj["starts"].append(x_offset)
+        adj_length = 2 * pad + chrom_sizes[chrom]
+        response_obj["lengths"].append(adj_length)
+        x_offset += adj_length
 
-    chromosomes = tuple(sorted(ends_absolute, key=lambda x: (ends_absolute[x]['order'])))
-    ends = [ends_absolute[key]['absolute_end'] for key in ends_absolute.keys()]
-    ends.insert(0, 0)
-    starts = tuple(sorted(ends))
-    chr_lengths = tuple([ends_absolute[x]['length'] for x in chromosomes])
-
-    obj = {'chromosomes': chromosomes, 'starts': starts, 'lengths': chr_lengths }
-    return JsonResponse(obj, safe=False)
+    return JsonResponse(response_obj, safe=False)
 
