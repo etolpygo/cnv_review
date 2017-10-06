@@ -1,16 +1,18 @@
 from __future__ import division, print_function
-import cnvlib
-from skgenome import tabio
-import numpy as np
 
+import csv
+import json
+import os
 
 from api.models import Case
 from api.serializers import CaseSerializer
 from rest_framework import viewsets
 from django.http import JsonResponse
-import csv
-import json
-import os
+
+import cnvlib
+import numpy as np
+from skgenome import tabio
+
 from . import utilities
 
 
@@ -46,27 +48,41 @@ def cnr(request, SR, CGP):
         data = json.dumps(csv_rows)
         return JsonResponse(csv_rows, safe=False)
 
-def cnx(request, SR, CGP):
-    is_segment = False # for now
+
+def load_cnx_coords(request, SR, CGP):
+    """Load CNVkit bin data (.cnr) for a given sequencing run and sample ID.
+
+    Reformat it in terms of plotting coordinates and labeling.
+    """
+    # Hard-coded for testing
     fname = 'test/go_run_data/' + SR + '/Data/Intensities/BaseCalls/Alignment/' + CGP + '.cnr'
-    cnarr = tabio.read(fname, "tab")# .filter(chromosome=chromosome)
+    is_segment = fname.endswith(".cns")
 
-    items = []
-    for item in cnarr:
-        obj = { "chromosome": item.chromosome,
-                "y_value": item.log2,
-                "weight": item.weight,
-                "gene": item.gene }
+    chrom_sizes = utilities.load_chromosome_sizes()
+    # TODO - tune for aesthetics
+    pad = 0.003 * sum(chrom_sizes.values())
 
+    cnarr = cnvlib.read(fname)
+    x_offset = 0
+    response_obj = []
+    for chrom, subcna in cnarr.by_chromosome():
+        table = subcna.data.loc[:, ("chromosome", "log2", "weight", "gene")]
         if is_segment:
-            obj["x_position"] = np.int(item.start)
-            obj["x_end"] = np.int(item.end)
-            obj["probes"] = item.probes
+            table["x_position"] = subcna.start
+            table["x_end"] = subcna.end
+            table["probes"] = subcna.probes
         else:
-            obj["x_position"] = np.int((item.start + item.end) // 2)
-        items.append(obj)
-    data = json.dumps(items)
-    return JsonResponse(items, safe=False)
+            table["x_position"] = (subcna.start + subcna.end) / 2
+        # Adjust bin x-axis positions for the chromosome's absolute x-position
+        x_offset += pad
+        table["x_position"] += x_offset
+        x_offset += pad + chrom_sizes[chrom]
+        # Transpose so JSON representation is row-wise
+        response_obj.extend((dict(row._asdict())
+                             for row in table.itertuples(index=False)))
+
+    data = json.dumps(response_obj)  # XXX for logging?
+    return JsonResponse(response_obj, safe=False)
 
 
 def chromosome_lengths(request):
