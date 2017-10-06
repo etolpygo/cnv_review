@@ -47,7 +47,7 @@ def cnr(request, SR, CGP):
         return JsonResponse(csv_rows, safe=False)
 
 def cnx(request, SR, CGP):
-    is_segment = False
+    is_segment = False # for now
     fname = 'test/go_run_data/' + SR + '/Data/Intensities/BaseCalls/Alignment/' + CGP + '.cnr'
     cnarr = tabio.read(fname, "tab")# .filter(chromosome=chromosome)
 
