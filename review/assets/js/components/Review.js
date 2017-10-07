@@ -87,28 +87,26 @@ export default class Review extends React.Component {
     	if (chromosome !== '') {
 	    	chromosomeFilter = (d) => d.chromosome === chromosome;
 	    	let ind = parseInt(_.invert(chromosomeLookup.labels)[chromosome]);
+	    	let chromosomeLength = chromosomeLookup.lengths[ind];
 	    	if (chromosomeLoc !== '') {
 	    		// validated by Controls
 	    		let cLoc = chromosomeLoc.split("-");
 	    		let chromosomeLocStart = parseInt(cLoc[0]);
 	    		let chromosomeLocEnd = parseInt(cLoc[1]);
-	    		chartMin = chromosomeLookup.starts[ind] + chromosomeLocStart - 40; // some padding
-	    		chartMax = chromosomeLookup.starts[ind] + chromosomeLocEnd + 40; // some padding
+	    		let length = parseInt(chromosomeLocEnd - chromosomeLocStart);
 
-	    		console.log('chromosome ' + chromosome + ' starts at ' + chromosomeLookup.starts[ind]);
-	    		console.log('chromosome ' + chromosome + ' ends at ' + chromosomeLookup.starts[ind + 1]);
-	    		console.log('start is ' + chromosomeLocStart);
-	    		console.log('end is ' + chromosomeLocEnd);
+	    		chartMin = ((chromosomeLocStart - (length * 0.1)) > 0) ? (chromosomeLocStart - (length * 0.1)) : 0; // some padding 
+	    		chartMax = ((chromosomeLocEnd + (length * 0.1)) < chromosomeLength) ? (chromosomeLocEnd + (length * 0.1)) : chromosomeLength; // some padding
 	    	}
 	    	else {
-		    	chartMin = chromosomeLookup.starts[ind];
-		    	chartMax = chromosomeLookup.starts[ind + 1] ? chromosomeLookup.starts[ind + 1] : chromosomeLookup.starts[chromosomeLookup.starts.length - 1];
+		    	chartMin = 0;
+		    	chartMax = chromosomeLength;
 		    }
 	    }
 	    else {
 	    	chromosomeFilter = () => true;
-	    	chartMin = chromosomeLookup.starts[0];
-	    	chartMax = chromosomeLookup.starts[chromosomeLookup.starts.length - 1];
+	    	chartMin = chromosomeLookup.padded_starts[0];
+	    	chartMax = chromosomeLookup.padded_starts[chromosomeLookup.padded_starts.length - 1] + chromosomeLookup.padded_lengths[chromosomeLookup.padded_lengths.length - 1];
 	    }
 
 	    this.setState({
@@ -137,6 +135,7 @@ export default class Review extends React.Component {
 								chromosomeLookup={this.state.chromosomeLookup}
 								chartMin={this.state.chartMin}
 								chartMax={this.state.chartMax}
+								atChromosome={this.state.goToLoc.chromosome}
 							{...styles} /> 
 					</div>
 					<div>Scroll up to zoom in; scroll down to zoom out.</div>

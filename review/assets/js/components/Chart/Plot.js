@@ -34,6 +34,18 @@ export default class Plot extends React.Component {
 
 	render() {
 		const scales = { xScale: this.xScale, yScale: this.yScale };
+		const atChromosome = this.props.atChromosome;
+
+		let chromosomeLines;
+		if (atChromosome === '') {
+			chromosomeLines = (<ChromosomeLines padded_starts={this.props.chromosomeLookup.padded_starts}
+								 				clipPath="url(#chartClip)"
+								 				{...scales} />);
+		}
+		else {
+			chromosomeLines = <span />;
+		}
+
 		return (
 			<svg width={this.props.width} height={this.props.height} ref="plot">
 				<defs>
@@ -45,22 +57,21 @@ export default class Plot extends React.Component {
 						/>
 					</clipPath>
 				</defs>
+				<CNRPoints cnr_data={this.props.cnr_data} 
+						   clipPath="url(#chartClip)"
+						   atChromosome={atChromosome}
+						   {...scales}  />
 				<ZeroAxis chartMin={this.props.chartMin}
 						  chartMax={this.props.chartMax}
 						  clipPath="url(#chartClip)"
 						  {...scales}  />
-				<CNRPoints cnr_data={this.props.cnr_data} 
-						   clipPath="url(#chartClip)"
-						   {...scales}  />
+				{chromosomeLines}
 				<XYAxes padding={this.props.padding} 
 						height={this.props.height}
 						width={this.props.width}
 						chromosomeLookup={this.props.chromosomeLookup}
+						atChromosome={atChromosome}
 						{...scales} />
-				<ChromosomeLines starts={this.props.chromosomeLookup.starts}
-								 clipPath="url(#chartClip)"
-								 {...scales} />
-			
 			</svg>
 		)
 	}

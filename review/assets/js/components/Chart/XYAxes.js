@@ -1,20 +1,35 @@
-import React  from 'react';
-import Axis   from './Axis';
+import React    from 'react';
+import Axis     from './Axis';
+import * as d3  from "d3";
+import _ from 'lodash';
 
 export default (props) => {
 
-  const xTopSettings = {
+
+  let xTopSettings = {
     translate: `translate(0, ${props.padding})`,
     scale: props.xScale,
-    orient: 'Top',
-    chromosomeLookup: props.chromosomeLookup
+    orient: 'Top'
   };
-  const xBottomSettings = {
+  let xBottomSettings = {
     translate: `translate(0, ${props.height - props.padding})`,
     scale: props.xScale,
-    orient: 'Bottom',
-    chromosomeLookup: props.chromosomeLookup
+    orient: 'Bottom'
   };
+
+  if (props.atChromosome !== '') {
+    var xSettings = {
+      numTicks: 10,
+      tickFormat: d3.format(",.0f")
+    }
+    xTopSettings = _.extend(xTopSettings, xSettings);
+    xBottomSettings = _.extend(xBottomSettings, xSettings)
+  }
+  else {
+    xBottomSettings.chromosomeLookup = props.chromosomeLookup;
+    xTopSettings.chromosomeLookup = props.chromosomeLookup;
+  }
+
   const yLeftSettings = {
     translate: `translate(${props.padding}, 0)`,
     scale: props.yScale,

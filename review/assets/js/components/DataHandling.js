@@ -9,15 +9,16 @@ export const loadData = (cnr_url, callback = _.noop) => {
 
           let chromosomes = {
             labels: chromosome_lengths.chromosomes,
-            starts: chromosome_lengths.starts,
+            padded_starts: chromosome_lengths.padded_starts,
+            padded_lengths: chromosome_lengths.padded_lengths,
             lengths: chromosome_lengths.lengths
           };
 
           callback({
               cnr_data: cnr_data,
               chromosomeLookup: chromosomes,
-              chartMin: chromosomes.starts[0],
-              chartMax: chromosomes.starts[chromosomes.starts.length - 1]
+              chartMin: chromosomes.padded_starts[0],
+              chartMax: chromosomes.padded_starts[chromosomes.padded_starts.length - 1] + chromosomes.padded_lengths[chromosomes.padded_lengths.length - 1]
           });
       });
 };

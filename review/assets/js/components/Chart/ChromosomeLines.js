@@ -19,6 +19,6 @@ const renderLines = (props) => {
 
 export default (props) => {
     return (
-	    <g className="chromosomeTicks">{ props.starts.map(renderLines(props)) }</g>
+	    <g className="chromosomeTicks">{ props.padded_starts.map(renderLines(props)) }</g>
     )
 }
