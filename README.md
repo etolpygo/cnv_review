@@ -8,6 +8,7 @@
 
 ### install python resources
 (in python 3)
+
 * pip install -r requirements.txt
 
 ### apply initial migrations
@@ -15,6 +16,7 @@ python manage.py migrate
 
 ### fetch needed dx files
 (in python 2, having logged into dx and selected CCGL_RawData)
+
 * cd test/go_run_data
 * python fetch_from_dx.py
 
