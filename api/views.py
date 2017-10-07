@@ -96,8 +96,10 @@ def chromosome_lengths(request):
         # Canonical chromosome names, in preferred order
         "chromosomes": chroms,
         # Absolute x-axis position of chromosome boundary line and x-axis ticks
-        "starts": [],
+        "padded_starts": [],
         # Each chromosome's length + 2x padding, for other display calculations
+        "padded_lengths": [],
+        # unpadded, normal lengths
         "lengths": [],
     }
 
@@ -105,9 +107,10 @@ def chromosome_lengths(request):
     pad = 0.003 * sum(chrom_sizes.values())
     x_offset = -pad
     for chrom in chroms:
-        response_obj["starts"].append(x_offset + pad)
+        response_obj["padded_starts"].append(x_offset + pad)
         adj_length = 2 * pad + chrom_sizes[chrom]
-        response_obj["lengths"].append(adj_length)
+        response_obj["padded_lengths"].append(adj_length)
+        response_obj["lengths"].append(chrom_sizes[chrom])
         x_offset += adj_length
 
     return JsonResponse(response_obj, safe=False)
