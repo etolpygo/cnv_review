@@ -19,8 +19,8 @@ export default (props) => {
 
   if (props.atChromosome !== '') {
     var xSettings = {
-      numTicks: 10,
-      tickFormat: d3.format(",.0f")
+      numTicks: 8,
+      tickFormat: function(d) { return d3.format(".2s")(d) + 'b'; }  
     }
     xTopSettings = _.extend(xTopSettings, xSettings);
     xBottomSettings = _.extend(xBottomSettings, xSettings)

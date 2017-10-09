@@ -14,18 +14,20 @@ export default class Axis extends React.Component {
   renderAxis() {
 
     const axisType = `axis${this.props.orient}`;
-    let axis = d3Axis[axisType]()
-        .scale(this.props.scale);
-    let axisTicks;
+    
+    let axis = d3Axis[axisType]().scale(this.props.scale);
 
     if (this.props.chromosomeLookup) {
-      axisTicks = axis.tickValues(this.props.chromosomeLookup.padded_starts).tickFormat((d, i) => this.props.chromosomeLookup.labels[i]);
+      axis = axis.tickValues(this.props.chromosomeLookup.padded_starts).tickFormat((d, i) => this.props.chromosomeLookup.labels[i]);
     }
     else if (this.props.numTicks) {
-      axisTicks = axis.ticks(this.props.numTicks);
+      axis = axis.ticks(this.props.numTicks);
+      if (this.props.tickFormat) {
+        axis = axis.tickFormat(this.props.tickFormat);
+      }
     }
 
-    d3Select(this.axisElement).call(axisTicks)
+    d3Select(this.axisElement).call(axis)
   }
 
   render() {
