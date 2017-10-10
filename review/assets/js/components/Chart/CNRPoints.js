@@ -28,6 +28,6 @@ const renderCircles = (props) => {
 
 export default (props) => {
     return (
-	    <g className="area">{ props.cnr_data.map(renderCircles(props)) }</g>
+	    <g className="cnr_area">{ props.cnr_data.map(renderCircles(props)) }</g>
     )
 }

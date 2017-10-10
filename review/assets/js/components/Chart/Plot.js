@@ -1,6 +1,7 @@
 import React        		from 'react';
 import * as d3      		from "d3";
 import CNRPoints   			from './CNRPoints';
+import CNSLines 			from './CNSLines';
 import XYAxes       		from './XYaxes';
 import ZeroAxis     		from './ZeroAxis';
 import ChromosomeLines    	from './ChromosomeLines';
@@ -61,6 +62,10 @@ export default class Plot extends React.Component {
 						   clipPath="url(#chartClip)"
 						   atChromosome={atChromosome}
 						   {...scales}  />
+				<CNSLines cns_data={this.props.cns_data} 
+						  clipPath="url(#chartClip)"
+						  atChromosome={atChromosome}
+						  {...scales}  />
 				<ZeroAxis chartMin={this.props.chartMin}
 						  chartMax={this.props.chartMax}
 						  clipPath="url(#chartClip)"

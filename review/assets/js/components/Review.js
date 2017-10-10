@@ -40,7 +40,7 @@ export default class Review extends React.Component {
     }
 
 	componentWillMount() {
-		loadData(this.props.cnr_url, data => this.setState(data));
+		loadData(this.props.cnx_url, data => this.setState(data));
 	}
 
     componentDidMount() {
@@ -54,9 +54,9 @@ export default class Review extends React.Component {
 	}
 
 	shouldComponentUpdate(nextProps, nextState) {
-	    const { cnr_data, goToLoc, zoomEvent } = this.state;
+	    const { cns_data, goToLoc, zoomEvent } = this.state;
 
-	    const changedData = (cnr_data && cnr_data.length) !== (nextState.cnr_data && nextState.cnr_data.length);
+	    const changedData = (cns_data && cns_data.length) !== (nextState.cns_data && nextState.cns_data.length);
 	    const changedFilters = Object.keys(goToLoc)
 	                                 .some(
 	                                    k => goToLoc[k] !== nextState.goToLoc[k]
@@ -126,17 +126,20 @@ export default class Review extends React.Component {
 
 		if (this.state.cnr_data && this.state.chromosomeLookup) {
 			const filteredCNR = this.state.cnr_data.filter(this.state.chromosomeFilter)
+			const filteredCNS = this.state.cns_data.filter(this.state.chromosomeFilter)
 
 			chartArea = (
 				<div>
 					<div ref="svg">
 						<Plot 	cnr_data={filteredCNR} 
+								cns_data={filteredCNS} 
 								zoomEvent={this.state.zoomEvent}
 								chromosomeLookup={this.state.chromosomeLookup}
 								chartMin={this.state.chartMin}
 								chartMax={this.state.chartMax}
 								atChromosome={this.state.goToLoc.chromosome}
-							{...styles} /> 
+								{...styles} 
+						/> 
 					</div>
 					<div>Scroll up to zoom in; scroll down to zoom out.</div>
 				</div>
