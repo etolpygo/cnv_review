@@ -1,4 +1,4 @@
-# Skeleton front and back-end structure to display a list of available cases.
+# Django REST back-end serves CNV data. React/D3 front-end consumes the data and presents it in graphic format.
 
 ## To setup locally:
 
@@ -7,16 +7,25 @@
 * cd cnv_review
 
 ### install python resources
+(in python 3)
+
 * pip install -r requirements.txt
+
+### apply initial migrations
+python manage.py migrate
+
+### fetch needed dx files
+(in python 2, having logged into dx and selected CCGL_RawData)
+
+* cd test/go_run_data
+* python fetch_from_dx.py
 
 ### install and compile js resources
 * npm install --save-dev
 * ./node_modules/.bin/webpack --config review/webpack.config.js
 
-### apply initial migrations
-python manage.py migrate
-
 ### run local server
+(back in python 3)
 python manage.py runserver
 
 
