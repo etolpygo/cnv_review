@@ -29,7 +29,6 @@ python manage.py migrate
 #### on linux:
 * sudo apt-get install nodejs-legacy (see https://github.com/giseburt/TinyG-node/issues/4)
 * npm install --save-dev
-* cd node_modules/.bin/ && ln -s ../webpack/bin/webpack.js webpack && cd -
 * ./node_modules/.bin/webpack --config review/webpack.config.js
 
 #### on osx:
