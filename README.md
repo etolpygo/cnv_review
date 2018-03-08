@@ -6,13 +6,16 @@
 * git clone git@bitbucket.org:ccgl/cnv_review.git
 * cd cnv_review
 
+
 ### install python resources
 (in python 3)
 
 * pip install -r requirements.txt
 
+
 ### apply initial migrations
 python manage.py migrate
+
 
 ### fetch needed dx files
 (in python 2, having logged into dx and selected CCGL_RawData)
@@ -20,12 +23,19 @@ python manage.py migrate
 * cd test/go_run_data
 * python fetch_from_dx.py
 
-### install and compile js resources
-#### first step on linux only:
-sudo apt-get install nodejs-legacy (see https://github.com/giseburt/TinyG-node/issues/4)
 
+### install and compile js resources
+
+#### on linux:
+* sudo apt-get install nodejs-legacy (see https://github.com/giseburt/TinyG-node/issues/4)
+* npm install --save-dev
+* cd node_modules/.bin/ && ln -s ../webpack/bin/webpack.js webpack && cd -
+* ./node_modules/.bin/webpack --config review/webpack.config.js
+
+#### on osx:
 * npm install --save-dev
 * ./node_modules/.bin/webpack --config review/webpack.config.js
+
 
 ### run local server
 (back in python 3)
