@@ -21,6 +21,9 @@ python manage.py migrate
 * python fetch_from_dx.py
 
 ### install and compile js resources
+#### first step on linux only:
+sudo apt-get install nodejs-legacy (see https://github.com/giseburt/TinyG-node/issues/4)
+
 * npm install --save-dev
 * ./node_modules/.bin/webpack --config review/webpack.config.js
 
