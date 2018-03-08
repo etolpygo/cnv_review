@@ -2,7 +2,7 @@ import React        		from 'react';
 import * as d3      		from "d3";
 import CNRPoints   			from './CNRPoints';
 import CNSLines 			from './CNSLines';
-import XYAxes       		from './XYaxes';
+import XYAxes       		from './XYAxes';
 import ZeroAxis     		from './ZeroAxis';
 import ChromosomeLines    	from './ChromosomeLines';
 
